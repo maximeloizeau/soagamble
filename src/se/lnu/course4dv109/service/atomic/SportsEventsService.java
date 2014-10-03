@@ -58,7 +58,7 @@ public class SportsEventsService extends AtomicService {
 	}
 	
 	private void createRandomMatches() {
-		int matchId = 65882;
+		int matchId = 1;
 		
 		Calendar start = Calendar.getInstance();
 		start.set(Calendar.HOUR_OF_DAY, 20);

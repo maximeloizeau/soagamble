@@ -5,7 +5,7 @@ import service.atomic.AtomicService;
 public class ServiceRegistry extends AtomicService {
 
 	public ServiceRegistry() {
-		super("SportsGamblingProviderRegistry", "ServiceRegistryEndpoint");
+		super("SportsGamblingProviderRegistry", "se.lnu.course4dv109");
 	}
 
 	public static void main(String[] args) {
