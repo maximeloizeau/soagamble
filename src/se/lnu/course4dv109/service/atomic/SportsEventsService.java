@@ -126,7 +126,7 @@ public class SportsEventsService extends AtomicService {
 	
 	
 	public static void main(String[] args) {
-		SportsEventsService sportsEventsService = new SportsEventsService("OddsService", "se.lnu.course4dv109.service.sportsevents");
+		SportsEventsService sportsEventsService = new SportsEventsService("SportsEventsService", "se.lnu.course4dv109.service.sportsevents");
 		
 //		HashMap customProperties = matrix.getServiceDescription().getCustomProperties();
 //		customProperties.put("Cost", 2);
