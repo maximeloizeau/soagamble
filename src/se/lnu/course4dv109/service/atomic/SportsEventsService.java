@@ -17,25 +17,6 @@ public class SportsEventsService extends AtomicService {
 	public SportsEventsService(String serviceName, String serviceEndpoint) {
 		super(serviceName, serviceEndpoint);
 	}
-	
-	public List<SportEvent> requestSportEvents() {
-		if (events.size() == 0) {
-			this.createRandomMatches();
-		}
-		
-		return this.events;
-	}
-	
-	@ServiceOperation
-	public SportEvent getSportEvent(int matchId) throws Exception {
-		for (SportEvent event : this.events) {
-			if (event.getId() == matchId) {
-				return event;
-			}
-		}
-		
-		throw new Exception("SportEvent with matchId " + matchId + " not found!");
-	}
 
 	@ServiceOperation
 	public SportEvent requestResult(int matchId) throws Exception {
@@ -51,6 +32,29 @@ public class SportsEventsService extends AtomicService {
 		}
 		
 		return event;
+	}
+	
+	@ServiceOperation
+	public List<SportEvent> requestSportEvents() {
+		if (events.size() == 0) {
+			this.createRandomMatches();
+		}
+		
+		return this.events;
+	}
+	
+	private SportEvent getSportEvent(int matchId) throws Exception {
+		if (events.size() == 0) {
+			this.createRandomMatches();
+		}
+		
+		for (SportEvent event : this.events) {
+			if (event.getId() == matchId) {
+				return event;
+			}
+		}
+		
+		throw new Exception("SportEvent with matchId " + matchId + " not found!");
 	}
 	
 	private void createRandomMatches() {
