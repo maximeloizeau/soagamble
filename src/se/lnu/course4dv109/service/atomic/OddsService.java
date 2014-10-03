@@ -50,4 +50,17 @@ public class OddsService extends AtomicService {
 	private double getRandom() {
 		return (new Random()).nextInt(100) / 100;
 	}
+	
+	
+	public static void main(String[] args) {
+		OddsService oddsService = new OddsService("OddsService", "se.lnu.course4dv109.service.odds");
+		
+//		HashMap customProperties = matrix.getServiceDescription().getCustomProperties();
+//		customProperties.put("Cost", 2);
+//		customProperties.put("Complexity", 3);
+//		customProperties.put("ResponseTime", 5);
+		oddsService.startService();
+		oddsService.register();
+	}
+
 }

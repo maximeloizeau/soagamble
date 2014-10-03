@@ -119,4 +119,16 @@ public class SportsEventsService extends AtomicService {
 		
 		return null;
 	}
+	
+	
+	public static void main(String[] args) {
+		SportsEventsService sportsEventsService = new SportsEventsService("OddsService", "se.lnu.course4dv109.service.sportsevents");
+		
+//		HashMap customProperties = matrix.getServiceDescription().getCustomProperties();
+//		customProperties.put("Cost", 2);
+//		customProperties.put("Complexity", 3);
+//		customProperties.put("ResponseTime", 5);
+		sportsEventsService.startService();
+		sportsEventsService.register();
+	}
 }
