@@ -21,11 +21,15 @@ public class OddsService extends AtomicService {
 
 	@ServiceOperation
 	public Odds requestOdds(SportEvent event) {
+		System.out.println("[4DV109] requestOdds.placeBet");
+		
 		return requestOdds(event.getId());
 	}
 
 	@ServiceOperation
 	public Odds requestOdds(int matchId) {
+		System.out.println("[4DV109] OddsService.requestOdds");
+		
 		if (!this.computeOdds.containsKey(matchId)) {
 			this.computeOdds(matchId);
 		}
@@ -35,6 +39,8 @@ public class OddsService extends AtomicService {
 
 	@ServiceOperation
 	public double requestProfits(SportEvent event, Bet bet) {
+		System.out.println("[4DV109] OddsService.requestProfits");
+		
 		Choice result = event.getResult();
 		Choice choice = bet.getChoice();
 		

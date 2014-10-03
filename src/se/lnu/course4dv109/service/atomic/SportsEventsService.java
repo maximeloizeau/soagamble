@@ -20,6 +20,8 @@ public class SportsEventsService extends AtomicService {
 
 	@ServiceOperation
 	public SportEvent requestResult(int matchId) throws Exception {
+		System.out.println("[4DV109] SportsEventsService.requestResult");
+		
 		SportEvent event = this.getSportEvent(matchId);
 		
 		if (event == null) {
@@ -36,6 +38,8 @@ public class SportsEventsService extends AtomicService {
 	
 	@ServiceOperation
 	public List<SportEvent> requestSportEvents() {
+		System.out.println("[4DV109] SportsEventsService.requestSportEvents");
+		
 		if (events.size() == 0) {
 			this.createRandomMatches();
 		}
