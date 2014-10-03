@@ -2,23 +2,23 @@ package se.lnu.course4dv109.object;
 
 public class Bet {
 
-	private double amount;
-	private SportEvent match;
+	private double money;
+	private Choice choice;
 	
-	public Bet(SportEvent match, double amount) {
-		this.match = match;
-		this.amount = amount;
+	public Bet(Choice choice, double money) {
+		this.choice = choice;
+		this.money = money;
 	}
 
 	public double getAmount() {
-		return amount;
+		return money;
 	}
 
 	public void setAmount(double amount) {
-		this.amount = amount;
+		this.money = amount;
 	}
 
-	public SportEvent getMatch() {
-		return match;
+	public Choice getChoice() {
+		return choice;
 	}
 }
