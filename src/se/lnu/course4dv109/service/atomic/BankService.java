@@ -22,7 +22,7 @@ public class BankService extends AtomicService {
 	 * @return true if it was successful, false if not.
 	 */
 	public boolean makePayment(String ccData, double amount) {
-		System.out.println("BankService proceed to payment : "+ccData+", "+amount+" unit of money to the system");
+		System.out.println("[4DV109] BankService proceed to payment : "+ccData+", "+amount+" unit of money to the system");
 		return true;
 	}
 	
@@ -34,7 +34,7 @@ public class BankService extends AtomicService {
 	 * @return true if the payment was made, false if not.
 	 */
 	public boolean requestPayment(String ccData, double amount) {
-		System.out.println("BankService proceed to payment : "+ccData+", "+amount+" unit of money to the customer");
+		System.out.println("[4DV109] BankService proceed to payment : "+ccData+", "+amount+" unit of money to the customer");
 		return true;
 	}
 	
