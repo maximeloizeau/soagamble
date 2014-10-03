@@ -18,13 +18,13 @@ public class BetService extends AtomicService {
 	
 	
 	public static void main(String[] args) {
-		SportsEventsService sportsEventsService = new SportsEventsService("BetService", "se.lnu.course4dv109.service.bet");
+		BetService betService = new BetService("BetService", "se.lnu.course4dv109.service.bet");
 		
 //		HashMap customProperties = matrix.getServiceDescription().getCustomProperties();
 //		customProperties.put("Cost", 2);
 //		customProperties.put("Complexity", 3);
 //		customProperties.put("ResponseTime", 5);
-		sportsEventsService.startService();
-		sportsEventsService.register();
+		betService.startService();
+		betService.register();
 	}
 }

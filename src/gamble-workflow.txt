@@ -1,4 +1,3 @@
 START ccData, matchId, choice, amount
-	result = SportsGambling.placeBet(ccData, matchId, choice, amount)
-	
+	result = BetService.placeBet(ccData, matchId, choice, amount)
 RETURN result
