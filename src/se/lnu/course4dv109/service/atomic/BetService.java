@@ -1,5 +1,7 @@
 package se.lnu.course4dv109.service.atomic;
 
+import java.util.Map;
+
 import se.lnu.course4dv109.object.Choice;
 import service.atomic.AtomicService;
 import service.auxiliary.ServiceOperation;
@@ -18,13 +20,13 @@ public class BetService extends AtomicService {
 	
 	
 	public static void main(String[] args) {
-		SportsEventsService sportsEventsService = new SportsEventsService("BetService", "se.lnu.course4dv109.service.bet");
+		SportsEventsService betService = new SportsEventsService("BetService", "se.lnu.course4dv109.service.bet");
 		
-//		HashMap customProperties = matrix.getServiceDescription().getCustomProperties();
-//		customProperties.put("Cost", 2);
-//		customProperties.put("Complexity", 3);
-//		customProperties.put("ResponseTime", 5);
-		sportsEventsService.startService();
-		sportsEventsService.register();
+		Map<String, Object> customProperties = betService.getServiceDescription().getCustomProperties();
+		customProperties.put("Cost", 2);
+		customProperties.put("Complexity", 3);
+		customProperties.put("ResponseTime", 5);
+		betService.startService();
+		betService.register();
 	}
 }
