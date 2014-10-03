@@ -3,6 +3,7 @@ package se.lnu.course4dv109.service.atomic;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import se.lnu.course4dv109.object.Choice;
@@ -132,10 +133,10 @@ public class SportsEventsService extends AtomicService {
 	public static void main(String[] args) {
 		SportsEventsService sportsEventsService = new SportsEventsService("SportsEventsService", "se.lnu.course4dv109.service.sportsevents");
 		
-//		HashMap customProperties = matrix.getServiceDescription().getCustomProperties();
-//		customProperties.put("Cost", 2);
-//		customProperties.put("Complexity", 3);
-//		customProperties.put("ResponseTime", 5);
+		Map<String, Object> customProperties = sportsEventsService.getServiceDescription().getCustomProperties();
+		customProperties.put("Cost", 2);
+		customProperties.put("Complexity", 3);
+		customProperties.put("ResponseTime", 5);
 		sportsEventsService.startService();
 		sportsEventsService.register();
 	}

@@ -1,5 +1,7 @@
 package se.lnu.course4dv109.service.atomic;
 
+import java.util.Map;
+
 import service.atomic.AtomicService;
 
 /**
@@ -42,10 +44,10 @@ public class BankService extends AtomicService {
 	public static void main(String[] args) {
 		BankService bankService = new BankService("BankService", "se.lnu.course4dv109.service.bank");
 		
-//		HashMap customProperties = matrix.getServiceDescription().getCustomProperties();
-//		customProperties.put("Cost", 2);
-//		customProperties.put("Complexity", 3);
-//		customProperties.put("ResponseTime", 5);
+		Map<String, Object> customProperties = bankService.getServiceDescription().getCustomProperties();
+		customProperties.put("Cost", 2);
+		customProperties.put("Complexity", 3);
+		customProperties.put("ResponseTime", 5);
 		bankService.startService();
 		bankService.register();
 	}
