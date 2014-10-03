@@ -13,12 +13,4 @@ public class BetCompositeService {
 		compositeService.startService();
 		compositeService.register();
 	}
-	
-	@ServiceOperation
-	public boolean placeBet(String ccData, int matchId, Choice choice, double amount) {
-		System.out.println("[4DV109] BetCompositeService.placeBet");
-		return false;
-	}
-	
-	
 }
