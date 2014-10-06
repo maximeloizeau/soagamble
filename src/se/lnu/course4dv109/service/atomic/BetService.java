@@ -1,8 +1,6 @@
 package se.lnu.course4dv109.service.atomic;
 
-import java.util.ArrayList;
 import java.util.Map;
-import java.util.SortedSet;
 
 import se.lnu.course4dv109.object.Bet;
 import se.lnu.course4dv109.object.Choice;

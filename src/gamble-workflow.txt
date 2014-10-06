@@ -4,6 +4,6 @@ START ccData, matchId, choice, amount
 	paymentOk = BankService.makePayment(ccData, amount)
 	bet = BetService.placeBet(match, choice, amount)
 	result = SportsEventsService.requestResult(matchId)
-	profit = OddsService.requestProfits(match, bet)
+	profit = OddsService.requestProfits(result, bet)
 	requestOk = BankService.requestPayment(ccData, profit)
 RETURN requestOk
