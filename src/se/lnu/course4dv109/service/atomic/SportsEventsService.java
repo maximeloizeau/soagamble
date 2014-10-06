@@ -96,6 +96,8 @@ public class SportsEventsService extends AtomicService {
 			String home = this.getRandomTeam(teams);
 			String away = this.getRandomTeam(teams);
 			
+			System.out.println("[4DV109] Match (" + matchId + ") - " + home + " : " + away);
+			
 			events.add(new SportEvent(matchId, home, away, start.getTime(), end.getTime()));
 			matchId++;
 		}
