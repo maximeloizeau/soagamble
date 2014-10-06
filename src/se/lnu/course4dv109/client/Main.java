@@ -1,4 +1,4 @@
-package se.lnu.course4dv109.client;
+package se.lnu.course4dv109.client; 
 
 import java.io.FileNotFoundException;
 
