@@ -48,7 +48,7 @@ public class SportsEventsService extends AtomicService {
 		return this.events;
 	}
 	
-	private SportEvent getSportEvent(int matchId) throws Exception {
+	public SportEvent getSportEvent(int matchId) throws Exception {
 		if (events.size() == 0) {
 			this.createRandomMatches();
 		}
