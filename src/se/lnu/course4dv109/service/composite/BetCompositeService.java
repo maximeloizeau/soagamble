@@ -2,7 +2,6 @@ package se.lnu.course4dv109.service.composite;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.Scanner;
 
 import se.lnu.course4dv109.qos.MinCostQoS;
 import service.composite.CompositeService;
