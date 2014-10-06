@@ -27,5 +27,4 @@ public class MinResponseTimeQoS implements AbstractQoSRequirement {
 		
 		return serviceDescriptions.get(index);
     }
-
 }
