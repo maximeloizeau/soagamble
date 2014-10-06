@@ -48,9 +48,7 @@ public class BankService extends AtomicService {
 		BankService bankService = new BankService("BankService", "se.lnu.course4dv109.service.bank");
 		
 		Map<String, Object> customProperties = bankService.getServiceDescription().getCustomProperties();
-		customProperties.put("Cost", 2);
-		customProperties.put("Complexity", 3);
-		customProperties.put("ResponseTime", 5);
+		customProperties.put("Transaction", true);
 		bankService.startService();
 		bankService.register();
 	}
