@@ -1,8 +1,12 @@
 package se.lnu.course4dv109.service.atomic;
 
+import java.util.ArrayList;
 import java.util.Map;
+import java.util.SortedSet;
 
+import se.lnu.course4dv109.object.Bet;
 import se.lnu.course4dv109.object.Choice;
+import se.lnu.course4dv109.object.SportEvent;
 import service.atomic.AtomicService;
 import service.auxiliary.ServiceOperation;
 
@@ -13,9 +17,13 @@ public class BetService extends AtomicService {
 	}
 	
 	@ServiceOperation
-	public boolean placeBet(String ccData, int matchId, Choice choice, double amount) {
+	public Bet placeBet(SportEvent event, Choice choice, double amount) {
 		System.out.println("[4DV109] BetService.placeBet");
-		return true;
+		
+		Bet bet = new Bet(choice, amount);
+		event.addBet(bet);
+		
+		return bet;
 	}
 	
 	
