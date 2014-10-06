@@ -116,7 +116,7 @@ public class SportsEventsService extends AtomicService {
 	}
 	
 	private Choice getRandomResult() {
-		int rand = this.getRandom(2);
+		int rand = this.getRandom(100000) % 3;
 		
 		switch (rand) {
 			case 0:

@@ -17,6 +17,8 @@ public class BetService extends AtomicService {
 	@ServiceOperation
 	public Bet placeBet(SportEvent event, Choice choice, double amount) {
 		System.out.println("[4DV109] BetService.placeBet");
+		System.out.println("             Beting: " + choice.toString());
+		System.out.println("             Amount: " + amount + " €");
 		
 		Bet bet = new Bet(choice, amount);
 		event.addBet(bet);

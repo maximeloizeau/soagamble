@@ -38,17 +38,21 @@ public class OddsService extends AtomicService {
 	}
 
 	@ServiceOperation
-	public double requestProfits(SportEvent event, Bet bet) {
-		System.out.println("[4DV109] OddsService.requestProfits");
-		
+	public double requestProfits(SportEvent event, Bet bet) {		
 		Choice result = event.getResult();
 		Choice choice = bet.getChoice();
+		double money = 0.0;
 		
 		if (result.equals(choice)) {
-			return this.computeOdds.get(event.getId()).getOdds(choice);
+			money = this.computeOdds.get(event.getId()).getOdds(choice);
 		}
 		
-		return 0.0;
+		System.out.println("[4DV109] OddsService.requestProfits");
+		System.out.println("             Choice: " + choice.toString());
+		System.out.println("             Result: " + result.toString());
+		System.out.println("             You Won: " + money + " €");
+		
+		return money;
 	}
 	
 	private void computeOdds(int matchId) {
