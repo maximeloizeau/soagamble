@@ -3,6 +3,7 @@ package se.lnu.course4dv109.service.atomic;
 import java.util.Map;
 
 import service.atomic.AtomicService;
+import service.auxiliary.ServiceOperation;
 
 /**
  * 
@@ -23,6 +24,7 @@ public class BankService extends AtomicService {
 	 * @param amount : the amount of money
 	 * @return true if it was successful, false if not.
 	 */
+	@ServiceOperation
 	public boolean makePayment(String ccData, double amount) {
 		System.out.println("[4DV109] BankService proceed to payment : "+ccData+", "+amount+" unit of money to the system");
 		return true;
@@ -35,6 +37,7 @@ public class BankService extends AtomicService {
 	 * @param amount : the amount of money to pay
 	 * @return true if the payment was made, false if not.
 	 */
+	@ServiceOperation
 	public boolean requestPayment(String ccData, double amount) {
 		System.out.println("[4DV109] BankService proceed to payment : "+ccData+", "+amount+" unit of money to the customer");
 		return true;
