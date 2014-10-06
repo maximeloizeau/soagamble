@@ -2,10 +2,10 @@ package se.lnu.course4dv109.service.registry;
 
 import service.atomic.AtomicService;
 
-public class ServiceRegistry extends AtomicService {
+public class ServiceRegistry extends service.registry.ServiceRegistry {
 
 	public ServiceRegistry() {
-		super("SportsGamblingProviderRegistry", "se.lnu.course4dv109");
+		super();
 	}
 
 	public static void main(String[] args) {

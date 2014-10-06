@@ -15,7 +15,7 @@ public class BetService extends AtomicService {
 	@ServiceOperation
 	public boolean placeBet(String ccData, int matchId, Choice choice, double amount) {
 		System.out.println("[4DV109] BetService.placeBet");
-		return false;
+		return true;
 	}
 	
 	
