@@ -1,9 +1,18 @@
 START ccData, matchId, choice, amount
-	match = SportsEventsService.getSportEvent(matchId)
-	odds = OddsService.requestOdds(match)
-	paymentOk = BankService.makePayment(ccData, amount)
-	bet = BetService.placeBet(match, choice, amount)
+	events = SportsEventsService.getSportEvents()
+	FOR(j=0;j<events.length;j++){
+		odds[j] = OddsService.requestOdds(events[j].getId())
+	}
+	//Wait for user selection (for instance confirm button)
+	//Check is enough money
+	/*paymentOk = BankService.makePayment(ccData, amount)
+	FOR(i=0;i<selection.length;i++){
+		bet = BetService.placeBet(match, choice, amount)
+	}
+	//User wants to check the results
+	//For
 	result = SportsEventsService.requestResult(matchId)
 	profit = OddsService.requestProfits(result, bet)
-	requestOk = BankService.requestPayment(ccData, profit)
-RETURN requestOk
+	//end for
+	requestOk = BankService.requestPayment(ccData, profit)*/
+RETURN odds
