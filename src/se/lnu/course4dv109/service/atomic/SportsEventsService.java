@@ -38,7 +38,7 @@ public class SportsEventsService extends AtomicService {
 	}
 	
 	@ServiceOperation
-	public List<SportEvent> requestSportEvents() {
+	public List<SportEvent> getSportEvents() {
 		System.out.println("[4DV109] SportsEventsService.requestSportEvents");
 		
 		if (events.size() == 0) {
@@ -136,9 +136,9 @@ public class SportsEventsService extends AtomicService {
 	public static void main(String[] args) {
 		SportsEventsService sportsEventsService = new SportsEventsService("SportsEventsService", "se.lnu.course4dv109.service.sportsevents");
 		
-		//Map<String, Object> customProperties = sportsEventsService.getServiceDescription().getCustomProperties();
-		//customProperties.put("Performance", 2);
-		//customProperties.put("DataReliability", true);
+		Map<String, Object> customProperties = sportsEventsService.getServiceDescription().getCustomProperties();
+		customProperties.put("Performance", 2);
+		customProperties.put("DataReliability", true);
 
 		sportsEventsService.startService();
 		sportsEventsService.register();

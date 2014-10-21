@@ -73,9 +73,9 @@ public class OddsService extends AtomicService {
 	public static void main(String[] args) {
 		OddsService oddsService = new OddsService("OddsService", "se.lnu.course4dv109.service.odds");
 		
-		//Map<String, Object> customProperties = oddsService.getServiceDescription().getCustomProperties();
-		//customProperties.put("Performance", 2);
-		//customProperties.put("DataReliability", true);
+		Map<String, Object> customProperties = oddsService.getServiceDescription().getCustomProperties();
+		customProperties.put("Performance", 2);
+		customProperties.put("DataReliability", true);
 		oddsService.startService();
 		oddsService.register();
 	}

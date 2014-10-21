@@ -6,7 +6,7 @@ import service.composite.CompositeService;
 public class BetCompositeService {
 	public static void main(String[] args) {
 		CompositeService compositeService = new CompositeService("SportsGambling", "se.lnu.course4dv109", "src/gamble-workflow.txt");
-		//compositeService.addQosRequirement("BestPerformance", new BestPerformanceQoS());
+		compositeService.addQosRequirement("BestPerformance", new BestPerformanceQoS());
 		compositeService.startService();
 		compositeService.register();
 	}
