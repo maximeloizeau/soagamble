@@ -1,18 +1,12 @@
 package se.lnu.course4dv109.client; 
 
-import java.io.FileNotFoundException;
-
 import se.lnu.course4dv109.service.atomic.*;
 import se.lnu.course4dv109.service.composite.*;
 import service.registry.ServiceRegistry;
 
 public class Main {
 
-	/**
-	 * @param args
-	 * @throws FileNotFoundException 
-	 */
-	public static void main(String[] args) throws FileNotFoundException {
+	public static void main(String[] args) {
 		ServiceRegistry.main(args);
 		BetService.main(args);
 		BankService.main(args);

@@ -38,14 +38,14 @@ public class SportsEventsService extends AtomicService {
 	}
 	
 	@ServiceOperation
-	public List<SportEvent> getSportEvents() {
-		System.out.println("[4DV109] SportsEventsService.requestSportEvents");
+	public SportEvent[] getSportEvents(int x) {
+		System.out.println("[4DV109] SportsEventsService.getSportEvents");
 		
 		if (events.size() == 0) {
 			this.createRandomMatches();
 		}
 		
-		return this.events;
+		return this.events.toArray(new SportEvent[this.events.size()]);
 	}
 	
 	@ServiceOperation
