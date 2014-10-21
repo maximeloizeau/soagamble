@@ -23,4 +23,10 @@ public class Odds {
 
 		return null;
 	}
+	
+	public String toString() {
+		return "Home: " + this.getOdds(Choice.HOME_TEAM) + 
+			" - Draw: " + this.getOdds(Choice.DRAW) + 
+			" - Away: " + this.getOdds(Choice.AWAY_TEAM);
+	}
 }

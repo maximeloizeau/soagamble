@@ -16,8 +16,8 @@ public class Client {
 		
 		for(String qosRequirement: qosRequirements){
 		    System.out.println("QoS requirement:" + qosRequirement );
-		    Odds[] result = (Odds[])client.invokeCompositeService(qosRequirement, "3333-3333", 1, Choice.DRAW, 10.0);
-			System.out.print("[4DV109] Result: " + (Arrays.toString(result)));
+		    Odds[] result = (Odds[])client.invokeCompositeService(qosRequirement, "3333-3333", 1, Choice.DRAW, 10.0, new Odds[8]);
+			System.out.println("[4DV109] Result: " + (Arrays.toString(result)));
 		}
 	}
 }

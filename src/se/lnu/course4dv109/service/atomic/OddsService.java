@@ -14,15 +14,14 @@ import service.auxiliary.ServiceOperation;
 public class OddsService extends AtomicService {
 
 	Map<Integer, Odds> computeOdds = new HashMap<Integer, Odds>();
+	private Random random = new Random();
 	
 	public OddsService(String serviceName, String serviceEndpoint) {
 		super(serviceName, serviceEndpoint);
 	}
 
 	@ServiceOperation
-	public Odds requestOdds(SportEvent event) { 
-		System.out.println("[4DV109] requestOdds.placeBet");
-		
+	public Odds requestOdds(SportEvent event) { 		
 		return requestOdds(event.getId());
 	}
 
@@ -66,7 +65,8 @@ public class OddsService extends AtomicService {
 	}	
 	
 	private double getRandom() {
-		return (new Random()).nextInt(100) / 100;
+		double val = random.nextInt(100);
+		return val / 10.0;
 	}
 	
 	
