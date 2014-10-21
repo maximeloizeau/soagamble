@@ -1,12 +1,9 @@
 package se.lnu.course4dv109.object;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 public class SportEvent {
 
-	private List<Bet> bets = new ArrayList<Bet>();
 	private int Id;
 	private String hometeam;
 	private String awayteam;
@@ -48,13 +45,5 @@ public class SportEvent {
 	
 	public Date getEndDate() {
 		return this.endDate;
-	}
-	
-	public List<Bet> getBets() {
-		return this.bets;
-	}
-	
-	public void addBet(Bet bet) {
-		this.bets.add(bet);
 	}
 }
