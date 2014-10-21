@@ -136,9 +136,9 @@ public class SportsEventsService extends AtomicService {
 	public static void main(String[] args) {
 		SportsEventsService sportsEventsService = new SportsEventsService("SportsEventsService", "se.lnu.course4dv109.service.sportsevents");
 		
-		Map<String, Object> customProperties = sportsEventsService.getServiceDescription().getCustomProperties();
-		customProperties.put("Performance", 2);
-		customProperties.put("DataReliability", true);
+		//Map<String, Object> customProperties = sportsEventsService.getServiceDescription().getCustomProperties();
+		//customProperties.put("Performance", 2);
+		//customProperties.put("DataReliability", true);
 
 		sportsEventsService.startService();
 		sportsEventsService.register();

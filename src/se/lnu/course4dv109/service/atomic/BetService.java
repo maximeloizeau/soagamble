@@ -47,8 +47,8 @@ public class BetService extends AtomicService {
 	public static void main(String[] args) {
 		BetService betService = new BetService("BetService", "se.lnu.course4dv109.service.bet");
 		
-		Map<String, Object> customProperties = betService.getServiceDescription().getCustomProperties();
-		customProperties.put("Performance", 1);
+		//Map<String, Object> customProperties = betService.getServiceDescription().getCustomProperties();
+		//customProperties.put("Performance", 1);
 		
 		betService.startService();
 		betService.register();

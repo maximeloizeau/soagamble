@@ -3,6 +3,7 @@ package se.lnu.course4dv109.client;
 import java.util.List;
 
 import se.lnu.course4dv109.object.Choice;
+import se.lnu.course4dv109.object.Odds;
 import service.composite.CompositeServiceClient;
 
 public class Client {
@@ -13,8 +14,12 @@ public class Client {
 		
 		for(String qosRequirement: qosRequirements){
 		    System.out.println("QoS requirement:" + qosRequirement );
-		    boolean result = (boolean)client.invokeCompositeService(qosRequirement, "3333-3333", 1, Choice.DRAW, 10.0);
-			System.out.print("[4DV109] Result: " + (result ? "true" : "false"));
+		    Odds[] result = (Odds[])client.invokeCompositeService(qosRequirement, "3333-3333", 1, Choice.DRAW, 10.0);
+			System.out.println("[4DV109] Result: ");
+			
+			for (Odds odds : result) {
+				System.out.println("Odds: " + odds.toString());
+			}
 		}
 	}
 }
