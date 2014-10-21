@@ -20,13 +20,13 @@ public class OddsService extends AtomicService {
 	}
 
 	@ServiceOperation
-	public Odds requestOdds(SportEvent event) {
+	public Odds requestOdds(SportEvent event) { 
 		System.out.println("[4DV109] requestOdds.placeBet");
 		
 		return requestOdds(event.getId());
 	}
 
-	@ServiceOperation
+	// @ServiceOperation
 	public Odds requestOdds(int matchId) {
 		System.out.println("[4DV109] OddsService.requestOdds");
 		

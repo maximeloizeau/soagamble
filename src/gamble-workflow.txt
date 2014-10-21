@@ -1,6 +1,6 @@
 START ccData, matchId, choice, amount
 	match = SportsEventsService.getSportEvent(matchId)
-	odds = OddsService.requestOdds(matchId)
+	odds = OddsService.requestOdds(match)
 	paymentOk = BankService.makePayment(ccData, amount)
 	bet = BetService.placeBet(match, choice, amount)
 	result = SportsEventsService.requestResult(matchId)
