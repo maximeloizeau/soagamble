@@ -27,4 +27,22 @@ public class Bet {
 	public int getMatchId() {
 		return this.matchId;
 	}
+	
+	public String toString() {
+		return "Choice: " + getChoiceName() + " - Amount: " + this.money;
+	}
+	
+	public String getChoiceName() {
+		if (this.choice == Choice.HOME_TEAM) {
+			return "Home";
+				
+		} else if (this.choice == Choice.DRAW) {
+			return "Draw";
+				
+		} else if (this.choice == Choice.AWAY_TEAM) {
+			return "Away";		
+		}
+		
+		return "";
+	}
 }

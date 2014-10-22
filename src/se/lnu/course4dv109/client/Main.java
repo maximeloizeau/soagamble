@@ -15,5 +15,4 @@ public class Main {
 		BetCompositeService.main(args);
 		Client.main(args);
 	}
-
 }

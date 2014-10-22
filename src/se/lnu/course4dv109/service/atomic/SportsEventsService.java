@@ -38,7 +38,7 @@ public class SportsEventsService extends AtomicService {
 	}
 	
 	@ServiceOperation
-	public SportEvent[] getSportEvents(int x) {
+	public SportEvent[] getSportEvents() {
 		System.out.println("[4DV109] SportsEventsService.getSportEvents");
 		
 		if (events.size() == 0) {
@@ -95,8 +95,6 @@ public class SportsEventsService extends AtomicService {
 		while (teams.size() > 1) {			
 			String home = this.getRandomTeam(teams);
 			String away = this.getRandomTeam(teams);
-			
-			System.out.println("[4DV109] Match (" + matchId + ") - " + home + " : " + away);
 			
 			events.add(new SportEvent(matchId, home, away, start.getTime(), end.getTime()));
 			matchId++;

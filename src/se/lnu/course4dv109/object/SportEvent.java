@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class SportEvent {
 
-	private int Id;
+	private int id;
 	private String hometeam;
 	private String awayteam;
 	private Choice result;
@@ -12,7 +12,7 @@ public class SportEvent {
 	private Date endDate;
 	
 	public SportEvent(int matchId, String hometeam, String awayteam, Date startDate, Date endDate) {
-		this.Id = matchId;
+		this.id = matchId;
 		this.hometeam = hometeam;
 		this.awayteam = awayteam;
 		this.startDate = startDate;
@@ -20,7 +20,7 @@ public class SportEvent {
 	}
 	
 	public int getId() {
-		return Id;
+		return id;
 	}
 
 	public String getHometeam() {
@@ -45,5 +45,9 @@ public class SportEvent {
 	
 	public Date getEndDate() {
 		return this.endDate;
+	}
+	
+	public String toString() {
+		return "(" + id + ") " + hometeam + " : " + awayteam;
 	}
 }
