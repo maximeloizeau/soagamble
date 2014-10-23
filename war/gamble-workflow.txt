@@ -1,0 +1,6 @@
+START ccData, matchId, choice, amount, odds
+	events = SportsEventsService.getSportEvents()
+	FOR(i=0;i<events.length;i++){
+		odds[i] = OddsService.requestOdds(events[i])
+	}
+RETURN odds

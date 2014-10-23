@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+              http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+         version="2.5"
+         xmlns="http://java.sun.com/xml/ns/javaee">
+
+  <!-- Servlets -->
+  <servlet>
+    <servlet-name>workflowServlet</servlet-name>
+    <servlet-class>com.lnu.soagamble2.server.WorkflowServiceImpl</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>workflowServlet</servlet-name>
+    <url-pattern>/soagamble2/workflow</url-pattern>
+  </servlet-mapping>
+
+  <!-- Default page to serve -->
+  <welcome-file-list>
+    <welcome-file>SOAGamble2.html</welcome-file>
+  </welcome-file-list>
+
+  
+  
+   <servlet>
+        <servlet-name>EventService</servlet-name>
+        <servlet-class>de.novanic.eventservice.service.EventServiceImpl</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EventService</servlet-name>
+        <url-pattern>/soagamble2/gwteventservice</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>ServerMessageGeneratorService</servlet-name>
+        <servlet-class>com.lnu.soagamble2.server.WorkflowServiceImpl</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ServerMessageGeneratorService</servlet-name>
+        <url-pattern>/soagamble2/ServerMessageGeneratorService</url-pattern>
+    </servlet-mapping>
+</web-app>
