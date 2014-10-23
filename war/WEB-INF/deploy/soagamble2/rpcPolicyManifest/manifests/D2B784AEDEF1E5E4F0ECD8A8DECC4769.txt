@@ -1,0 +1,2 @@
+serviceClass: com.lnu.soagamble2.client.WorkflowService
+path: 8BD7F9D2890B282F7307F89CF9616082.gwt.rpc
