@@ -2,8 +2,10 @@ package com.lnu.soagamble2.client;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.core.client.JsArrayString;
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.lnu.soagamble2.client.event.MethodInProgressEvent;
+import com.lnu.soagamble2.client.event.State;
+import com.lnu.soagamble2.client.event.UpdateUIEvent;
 
 import de.novanic.eventservice.client.event.Event;
 import de.novanic.eventservice.client.event.RemoteEventService;
@@ -27,27 +29,40 @@ public class SOAGamble2 implements EntryPoint {
 	 */
 	private final static WorkflowServiceAsync workflowService = GWT.create(WorkflowService.class);
 
-	public static native void printResult(String message)/*-{
-	  $wnd.print(message); 
+	public static native void printSportEventTable(JsArrayString events)/*-{
+	  $wnd.printSportEventTable(events); 
 	}-*/;
 	/**
 	 * This is the entry point method.
 	 */
 	public void onModuleLoad() {
 		exportJSFunction();
-		
+
 		RemoteEventService theRemoteEventService = RemoteEventServiceFactory.getInstance().getRemoteEventService();
-        //add a listener to the SERVER_MESSAGE_DOMAIN
-        theRemoteEventService.addListener(MethodInProgressEvent.SERVER_MESSAGE_DOMAIN, new RemoteEventListener() {
-            public void apply(Event anEvent) {
-                if(anEvent instanceof MethodInProgressEvent) {
-                    MethodInProgressEvent theServerGeneratedMessageEvent = (MethodInProgressEvent)anEvent;
-                    printResult(theServerGeneratedMessageEvent.getServerGeneratedMessage());
-                }
-            }
-        });
-        
-        workflowService.initialize(callback);
+		//add a listener to the SERVER_MESSAGE_DOMAIN
+		theRemoteEventService.addListener(UpdateUIEvent.SERVER_MESSAGE_DOMAIN, new RemoteEventListener() {
+			public void apply(Event anEvent) {
+				System.out.println("APPLY");
+				if(anEvent instanceof UpdateUIEvent) {
+					System.out.println("UPDATEUI EVENT");
+					UpdateUIEvent event = (UpdateUIEvent)anEvent;
+					int state = ((UpdateUIEvent) anEvent).getState();
+					switch(state){
+					case State.GET_SPORT_EVENTS:
+						System.out.println("SPORT EVENT");
+						JsArrayString jsArrayString = JsArrayString.createArray().cast();
+					    for (String s : event.getGeneratedObject()) {
+					        jsArrayString.push(s);
+					    }
+						printSportEventTable(jsArrayString);
+						break;
+					}
+					
+				}
+			}
+		});
+
+		workflowService.initialize(callback);
 	}
 
 	public static native void exportJSFunction()/*-{

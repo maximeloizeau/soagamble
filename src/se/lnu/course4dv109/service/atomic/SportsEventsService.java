@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import com.lnu.soagamble2.client.event.State;
 import com.lnu.soagamble2.server.WorkflowServiceImpl;
 
 import se.lnu.course4dv109.object.Choice;
@@ -55,7 +56,11 @@ public class SportsEventsService extends AtomicService {
 			this.createRandomMatches();
 		}
 		SportEvent[] list = this.events.toArray(new SportEvent[this.events.size()]);
-		impl.methodInProgress(Arrays.toString(list));
+		String[] events = new String[list.length];
+		for(int i=0;i<events.length;i++){
+			events[i] = list[i].toString();
+		}
+		impl.updateClientUI(events, State.GET_SPORT_EVENTS);
 		return list;
 	}
 	

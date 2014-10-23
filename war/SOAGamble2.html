@@ -25,10 +25,18 @@
 <!--                                           -->
 <script type="text/javascript" language="javascript"
 	src="soagamble2/soagamble2.nocache.js"></script>
-	
+
 <script>
-	function print(name) {
-		alert(name);
+	function printSportEventTable(events) {
+		var eventTable = document.getElementById("eventTable");
+		events.forEach(function(entry) {
+	    	var tr = document.createElement("tr");
+	    	var td = document.createElement("td");
+	    	tr.appendChild(td);
+	    	var text = document.createTextNode(entry);
+			td.appendChild(text);
+			eventTable.appendChild(tr);
+		});
 	}
 </script>
 </head>
@@ -53,7 +61,11 @@
 	</noscript>
 	<h1>Gambling SOA system</h1>
 	<p>
-		Click here to <a href="javascript:launchWorkflow();">launch the automatic bet sequence</a>
+		Click here to <a href="javascript:launchWorkflow();">launch the
+			automatic bet sequence</a>
 	</p>
+
+	<table id="eventTable">
+	</table>
 </body>
 </html>

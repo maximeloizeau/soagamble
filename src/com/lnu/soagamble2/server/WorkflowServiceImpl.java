@@ -9,10 +9,11 @@ import se.lnu.course4dv109.service.atomic.SportsEventsService;
 import se.lnu.course4dv109.service.composite.BetCompositeService;
 import service.registry.ServiceRegistry;
 
+import com.lnu.soagamble2.client.Dummy;
 import com.lnu.soagamble2.client.ServerMessageGeneratorService;
 import com.lnu.soagamble2.client.WorkflowService;
-import com.lnu.soagamble2.client.event.MethodInProgressEvent;
-import com.google.gwt.user.server.rpc.RemoteServiceServlet;
+import com.lnu.soagamble2.client.event.State;
+import com.lnu.soagamble2.client.event.UpdateUIEvent;
 
 import de.novanic.eventservice.client.event.Event;
 import de.novanic.eventservice.service.RemoteEventServiceServlet;
@@ -48,10 +49,10 @@ WorkflowService, ServerMessageGeneratorService {
 		return "Client created";
 	}
 
-	public void methodInProgress(String string) {
-		Event theEvent = new MethodInProgressEvent(string);
+	public void updateClientUI(String[] object, int state) {
+		Event theEvent = new UpdateUIEvent(object, state);
         //add the event, so clients can receive it
-        addEvent(MethodInProgressEvent.SERVER_MESSAGE_DOMAIN, theEvent);
+        addEvent(UpdateUIEvent.SERVER_MESSAGE_DOMAIN, theEvent);
 	}
 
 	@Override
