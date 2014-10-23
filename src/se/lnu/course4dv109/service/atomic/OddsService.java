@@ -43,7 +43,7 @@ public class OddsService extends AtomicService {
 		double money = 0.0;
 		
 		if (result.equals(choice)) {
-			money = this.computeOdds.get(event.getId()).getOdds(choice);
+			money = this.computeOdds.get(event.getId()).getOdds(choice) * bet.getAmount();
 		}
 		
 		System.out.println("[4DV109] OddsService.requestProfits");

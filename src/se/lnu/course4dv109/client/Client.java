@@ -5,6 +5,7 @@ import java.util.List;
 
 import se.lnu.course4dv109.object.Bet;
 import se.lnu.course4dv109.object.Odds;
+import se.lnu.course4dv109.object.SportEvent;
 import service.composite.CompositeServiceClient;
 
 public class Client extends CompositeServiceClient {
@@ -26,7 +27,6 @@ public class Client extends CompositeServiceClient {
 			
 		    System.out.println("QoS requirement:" + qosRequirement );
 		    result = (double)client.invokeCompositeService(qosRequirement, "3333-3333", userId, odds, bets, profits, result);
-		    
 		    System.out.println("Result: " + result);
 		}
 	}
