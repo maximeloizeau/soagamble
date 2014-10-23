@@ -11,7 +11,7 @@ public class Main {
 		BetService.main(args);
 		BankService.main(args);
 		OddsService.main(args);
-		SportsEventsService.main(args);
+		//SportsEventsService.main(args, this);
 		BetCompositeService.main(args);
 		//Client.main(args);
 	}

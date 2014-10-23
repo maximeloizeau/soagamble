@@ -1,10 +1,13 @@
 package se.lnu.course4dv109.service.atomic;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+
+import com.lnu.soagamble2.server.WorkflowServiceImpl;
 
 import se.lnu.course4dv109.object.Choice;
 import se.lnu.course4dv109.object.SportEvent;
@@ -14,9 +17,11 @@ import service.auxiliary.ServiceOperation;
 public class SportsEventsService extends AtomicService {
 
 	private List<SportEvent> events = new ArrayList<SportEvent>();
+	private WorkflowServiceImpl impl;
 	
-	public SportsEventsService(String serviceName, String serviceEndpoint) {
+	public SportsEventsService(String serviceName, String serviceEndpoint, WorkflowServiceImpl impl) {
 		super(serviceName, serviceEndpoint);
+		this.impl = impl;
 	}
 
 	// @ServiceOperation
@@ -49,8 +54,9 @@ public class SportsEventsService extends AtomicService {
 		if (events.size() == 0) {
 			this.createRandomMatches();
 		}
-		
-		return this.events.toArray(new SportEvent[this.events.size()]);
+		SportEvent[] list = this.events.toArray(new SportEvent[this.events.size()]);
+		impl.methodInProgress(Arrays.toString(list));
+		return list;
 	}
 	
 	@ServiceOperation
@@ -136,8 +142,8 @@ public class SportsEventsService extends AtomicService {
 	}
 	
 	
-	public static void main(String[] args) {
-		SportsEventsService sportsEventsService = new SportsEventsService("SportsEventsService", "se.lnu.course4dv109.service.sportsevents");
+	public static void main(String[] args, WorkflowServiceImpl impl) {
+		SportsEventsService sportsEventsService = new SportsEventsService("SportsEventsService", "se.lnu.course4dv109.service.sportsevents", impl);
 		
 		Map<String, Object> customProperties = sportsEventsService.getServiceDescription().getCustomProperties();
 		customProperties.put("Performance", 2);

@@ -13,18 +13,20 @@ import service.composite.CompositeService;
 public class BetCompositeService extends CompositeService {
 		
 	private double amount = 0;
+	private String pathToWorkflow;
 	
 	public static void main(String[] args) {
-		BetCompositeService bcs = new BetCompositeService();
+		BetCompositeService bcs = new BetCompositeService(args[0]);
 		bcs.start();
 	}
 	
-	public BetCompositeService() {
-		super("SportsGambling", "se.lnu.course4dv109", "src/gamble-workflow.txt");
+	public BetCompositeService(String path) {
+		super("SportsGambling", "se.lnu.course4dv109", path);
+		this.pathToWorkflow = path;
 	}
 	
 	public void start() {
-		BetCompositeService compositeService = new BetCompositeService();
+		BetCompositeService compositeService = new BetCompositeService(pathToWorkflow);
 		compositeService.addQosRequirement("BestPerformance", new BestPerformanceQoS());
 		compositeService.startService();
 		compositeService.register();

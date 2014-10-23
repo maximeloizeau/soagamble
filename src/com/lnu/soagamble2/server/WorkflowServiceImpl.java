@@ -34,7 +34,7 @@ WorkflowService, ServerMessageGeneratorService {
 		BankService.main(args);
 		OddsService.main(args);
 		SportsEventsService.main(args, this);
-		String[] path = {getServletContext().getRealPath("/gamble-workflow.txt")};
+		String[] path = {getServletContext().getRealPath("gamble-workflow.txt")};
 		BetCompositeService.main(path);
 
 
