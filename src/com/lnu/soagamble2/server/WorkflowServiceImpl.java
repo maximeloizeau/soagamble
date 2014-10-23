@@ -9,10 +9,8 @@ import se.lnu.course4dv109.service.atomic.SportsEventsService;
 import se.lnu.course4dv109.service.composite.BetCompositeService;
 import service.registry.ServiceRegistry;
 
-import com.lnu.soagamble2.client.Dummy;
 import com.lnu.soagamble2.client.ServerMessageGeneratorService;
 import com.lnu.soagamble2.client.WorkflowService;
-import com.lnu.soagamble2.client.event.State;
 import com.lnu.soagamble2.client.event.UpdateUIEvent;
 
 import de.novanic.eventservice.client.event.Event;
