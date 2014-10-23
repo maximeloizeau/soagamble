@@ -1,5 +1,6 @@
 package se.lnu.course4dv109.service.atomic;
 
+import java.text.DecimalFormat;
 import java.util.Map;
 
 import service.atomic.AtomicService;
@@ -41,6 +42,20 @@ public class BankService extends AtomicService {
 	public boolean requestPayment(String ccData, double amount) {
 		System.out.println("[4DV109] BankService proceed to payment : "+ccData+", "+amount+" unit of money to the customer");
 		return true;
+	}
+	
+	@ServiceOperation
+	public double requestPayment(String ccData, double[] amount) {
+		double sum = 0.0;
+		
+		for (double s : amount) {
+			sum += s;
+		}
+		
+		DecimalFormat d = new DecimalFormat("#.##");
+		
+		System.out.println("[4DV109] BankService proceed to payment : "+ccData+", "+d.format(sum)+" unit of money to the customer");
+		return sum;
 	}
 	
 	

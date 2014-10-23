@@ -12,6 +12,8 @@ import service.composite.CompositeService;
 
 public class BetCompositeService extends CompositeService {
 		
+	private double amount = 0;
+	
 	public static void main(String[] args) {
 		BetCompositeService bcs = new BetCompositeService();
 		bcs.start();
@@ -61,7 +63,15 @@ public class BetCompositeService extends CompositeService {
 	
 	@LocalOperation
 	public double getAmount(SportEvent event) {
-		return this.getRandom(15);
+		double rand = this.getRandom(15);
+		amount += rand;
+		
+		return rand;
+	}
+	
+	@LocalOperation
+	public double getTotalAmount() {
+		return this.amount;
 	}
 	
 	@LocalOperation

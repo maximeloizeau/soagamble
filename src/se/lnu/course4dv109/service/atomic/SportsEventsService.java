@@ -19,7 +19,7 @@ public class SportsEventsService extends AtomicService {
 		super(serviceName, serviceEndpoint);
 	}
 
-	@ServiceOperation
+	// @ServiceOperation
 	public SportEvent requestResult(int matchId) throws Exception {
 		System.out.println("[4DV109] SportsEventsService.requestResult");
 		
@@ -35,6 +35,11 @@ public class SportsEventsService extends AtomicService {
 		}
 		
 		return event;
+	}
+	
+	@ServiceOperation
+	public SportEvent requestResult(SportEvent event) throws Exception {
+		return this.requestResult(event.getId());
 	}
 	
 	@ServiceOperation

@@ -13,6 +13,6 @@ public class Main {
 		OddsService.main(args);
 		SportsEventsService.main(args);
 		BetCompositeService.main(args);
-		Client.main(args);
+		//Client.main(args);
 	}
 }

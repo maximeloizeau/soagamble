@@ -1,0 +1,1 @@
+java -cp testing.jar;".\lib\*" se.lnu.course4dv109.client.Main

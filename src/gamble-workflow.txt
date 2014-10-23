@@ -1,4 +1,4 @@
-START ccData, userId, odds, bets
+START ccData, userId, odds, bets, profit, winings
 	events = SportsEventsService.getSportEvents()
 	this.printEvents(events)
 		
@@ -17,16 +17,16 @@ START ccData, userId, odds, bets
 	
 	this.printBets(events, bets, odds)
 	
-	//Wait for user selection (for instance confirm button)
-	//Check is enough money
-	//paymentOk = BankService.makePayment(ccData, amount)
-	/*FOR(i=0;i<selection.length;i++){
-		bet = BetService.placeBet(match, choice, amount)
+	sum = this.getTotalAmount()
+	result = BankService.makePayment(ccData, sum)
+	
+	IF (result == true) {
+		FOR (i=0; i<events.length; i++){
+			res = SportsEventsService.requestResult(events[i])
+			profit[i] = OddsService.requestProfits(res, bets[i])
+		}
+		
+		winings = BankService.requestPayment(ccData, profit)
 	}
-	//User wants to check the results
-	//For
-	result = SportsEventsService.requestResult(matchId)
-	profit = OddsService.requestProfits(result, bet)
-	//end for
-	requestOk = BankService.requestPayment(ccData, profit)*/
-RETURN odds
+	
+RETURN winings
