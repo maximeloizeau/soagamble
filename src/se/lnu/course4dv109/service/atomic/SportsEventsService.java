@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import com.lnu.course4dv109.service.actomic.graphical.GraphicalSportsEventsService;
 import com.lnu.soagamble2.client.event.State;
 import com.lnu.soagamble2.server.WorkflowServiceImpl;
 
@@ -18,7 +19,7 @@ import service.auxiliary.ServiceOperation;
 public class SportsEventsService extends AtomicService {
 
 	private List<SportEvent> events = new ArrayList<SportEvent>();
-	private WorkflowServiceImpl impl;
+	protected WorkflowServiceImpl impl;
 	
 	public SportsEventsService(String serviceName, String serviceEndpoint, WorkflowServiceImpl impl) {
 		super(serviceName, serviceEndpoint);
@@ -56,11 +57,6 @@ public class SportsEventsService extends AtomicService {
 			this.createRandomMatches();
 		}
 		SportEvent[] list = this.events.toArray(new SportEvent[this.events.size()]);
-		String[] events = new String[list.length];
-		for(int i=0;i<events.length;i++){
-			events[i] = list[i].toString();
-		}
-		impl.updateClientUI(events, State.GET_SPORT_EVENTS);
 		return list;
 	}
 	
@@ -148,7 +144,7 @@ public class SportsEventsService extends AtomicService {
 	
 	
 	public static void main(String[] args, WorkflowServiceImpl impl) {
-		SportsEventsService sportsEventsService = new SportsEventsService("SportsEventsService", "se.lnu.course4dv109.service.sportsevents", impl);
+		SportsEventsService sportsEventsService = new GraphicalSportsEventsService("SportsEventsService", "se.lnu.course4dv109.service.sportsevents", impl);
 		
 		Map<String, Object> customProperties = sportsEventsService.getServiceDescription().getCustomProperties();
 		customProperties.put("Performance", 2);

@@ -7,5 +7,5 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
  */
 public interface WorkflowServiceAsync {
 	void initialize(AsyncCallback<String> callback);
-	void createClient(AsyncCallback<String> callback);
+	void createClient(AsyncCallback<Double> callback);
 }

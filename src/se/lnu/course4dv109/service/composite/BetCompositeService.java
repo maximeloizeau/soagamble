@@ -77,6 +77,11 @@ public class BetCompositeService extends CompositeService {
 	}
 	
 	@LocalOperation
+	public void resetTotalAmount() {
+		this.amount=0;
+	}
+	
+	@LocalOperation
 	public Choice getChoice(SportEvent event) {
 		Double rand = this.getRandom(100000) % 3;
 		

@@ -1,6 +1,5 @@
 package com.lnu.soagamble2.client;
 
-import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
@@ -10,5 +9,5 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 @RemoteServiceRelativePath("workflow")
 public interface WorkflowService extends RemoteService {
 	String initialize();
-	String createClient();
+	Double createClient();
 }

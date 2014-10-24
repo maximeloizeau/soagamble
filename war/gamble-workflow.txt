@@ -1,12 +1,9 @@
 START ccData, userId, odds, bets, profit, winings
 	events = SportsEventsService.getSportEvents()
-	this.printEvents(events)
 		
 	FOR (i=0; i<events.length; i++){
 		odds[i] = OddsService.requestOdds(events[i])
 	}
-	
-	this.printOdds(events, odds)
 	
 	FOR (i=0; i<events.length; i++){
 		am = this.getAmount(events[i])
@@ -14,8 +11,6 @@ START ccData, userId, odds, bets, profit, winings
 		
 		bets[i] = BetService.placeBet(events[i], userId, ch, am)
 	}
-	
-	this.printBets(events, bets, odds)
 	
 	sum = this.getTotalAmount()
 	result = BankService.makePayment(ccData, sum)
@@ -27,6 +22,7 @@ START ccData, userId, odds, bets, profit, winings
 		}
 		
 		winings = BankService.requestPayment(ccData, profit)
+		this.resetTotalAmount()
 	}
 	
 RETURN winings

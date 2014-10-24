@@ -15,10 +15,10 @@ public class Odds {
 			return this.values[0];
 			
 		} else if (choice.equals(Choice.DRAW)) {
-			return this.values[0];
+			return this.values[1];
 				
 		} else if (choice.equals(Choice.AWAY_TEAM)) {
-			return this.values[0];
+			return this.values[2];
 		}
 
 		return null;

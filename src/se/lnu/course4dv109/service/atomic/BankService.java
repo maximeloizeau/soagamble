@@ -3,6 +3,9 @@ package se.lnu.course4dv109.service.atomic;
 import java.text.DecimalFormat;
 import java.util.Map;
 
+import com.lnu.course4dv109.service.actomic.graphical.GraphicalBankService;
+import com.lnu.soagamble2.server.WorkflowServiceImpl;
+
 import service.atomic.AtomicService;
 import service.auxiliary.ServiceOperation;
 
@@ -59,8 +62,8 @@ public class BankService extends AtomicService {
 	}
 	
 	
-	public static void main(String[] args) {
-		BankService bankService = new BankService("BankService", "se.lnu.course4dv109.service.bank");
+	public static void main(String[] args, WorkflowServiceImpl impl) {
+		GraphicalBankService bankService = new GraphicalBankService("BankService", "se.lnu.course4dv109.service.bank", impl);
 		
 		Map<String, Object> customProperties = bankService.getServiceDescription().getCustomProperties();
 		customProperties.put("Transaction", true);

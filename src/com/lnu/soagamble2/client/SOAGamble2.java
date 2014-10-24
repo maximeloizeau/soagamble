@@ -32,6 +32,27 @@ public class SOAGamble2 implements EntryPoint {
 	public static native void printSportEventTable(JsArrayString events)/*-{
 	  $wnd.printSportEventTable(events); 
 	}-*/;
+	
+	public static native void printOdds(JsArrayString jsArrayString)/*-{
+	  $wnd.printOdds(jsArrayString); 
+	}-*/;
+	
+	public static native void printBet(JsArrayString jsArrayString)/*-{
+	  $wnd.printBet(jsArrayString); 
+	}-*/;
+	
+	public static native void printProfit(JsArrayString jsArrayString)/*-{
+	  $wnd.printProfit(jsArrayString); 
+	}-*/;
+	
+	public static native void displayProfit(double profit)/*-{
+	  $wnd.displayProfit(profit); 
+	}-*/;
+	
+	public static native void computeAssets(double paid)/*-{
+	  $wnd.computeAssets(paid); 
+	}-*/;
+	
 	/**
 	 * This is the entry point method.
 	 */
@@ -47,17 +68,27 @@ public class SOAGamble2 implements EntryPoint {
 					System.out.println("UPDATEUI EVENT");
 					UpdateUIEvent event = (UpdateUIEvent)anEvent;
 					int state = ((UpdateUIEvent) anEvent).getState();
+					JsArrayString jsArrayString = arrayToJsArray(event.getGeneratedObject());
 					switch(state){
 					case State.GET_SPORT_EVENTS:
 						System.out.println("SPORT EVENT");
-						JsArrayString jsArrayString = JsArrayString.createArray().cast();
-					    for (String s : event.getGeneratedObject()) {
-					        jsArrayString.push(s);
-					    }
 						printSportEventTable(jsArrayString);
 						break;
+					case State.REQUEST_ODDS:
+						printOdds(jsArrayString);
+						break;
+					case State.PLACE_BET:
+						printBet(jsArrayString);
+						break;
+					case State.REQUEST_PROFIT:
+						printProfit(jsArrayString);
+						break;
+					case State.MAKE_PAYMENT:
+						String[] tab = event.getGeneratedObject();
+						double paid = Double.parseDouble(tab[0]);
+						computeAssets(paid);
+						break;
 					}
-					
 				}
 			}
 		});
@@ -65,12 +96,23 @@ public class SOAGamble2 implements EntryPoint {
 		workflowService.initialize(callback);
 	}
 
+	
+	private JsArrayString arrayToJsArray(String[] tab){
+		JsArrayString jsArrayString = JsArrayString.createArray().cast();
+	    for (String s : tab) {
+	        jsArrayString.push(s);
+	    }
+	    return jsArrayString;
+	}
+	
 	public static native void exportJSFunction()/*-{
 	  $wnd.launchWorkflow = @com.lnu.soagamble2.client.SOAGamble2::launchWorkflow();
 	}-*/;
+	
+	
 
 	public static void launchWorkflow(){
-		workflowService.createClient(callback);
+		workflowService.createClient(clientCallback);
 	}
 
 	static AsyncCallback<String> callback = new AsyncCallback<String>(){
@@ -83,8 +125,22 @@ public class SOAGamble2 implements EntryPoint {
 
 		@Override
 		public void onSuccess(String result) {
-			// TODO Auto-generated method stub
+			
+		}
 
+	};
+	
+	static AsyncCallback<Double> clientCallback = new AsyncCallback<Double>(){
+
+		@Override
+		public void onFailure(Throwable caught) {
+			displayProfit(-1.0);
+
+		}
+
+		@Override
+		public void onSuccess(Double result) {
+			displayProfit(result);
 		}
 
 	};

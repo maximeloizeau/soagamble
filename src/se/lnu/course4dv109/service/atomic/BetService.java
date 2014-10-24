@@ -5,6 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.lnu.course4dv109.service.actomic.graphical.GraphicalBetService;
+import com.lnu.soagamble2.server.WorkflowServiceImpl;
+
 import se.lnu.course4dv109.object.Bet;
 import se.lnu.course4dv109.object.Choice;
 import se.lnu.course4dv109.object.SportEvent;
@@ -44,8 +47,8 @@ public class BetService extends AtomicService {
 		return list;
 	}
 	
-	public static void main(String[] args) {
-		BetService betService = new BetService("BetService", "se.lnu.course4dv109.service.bet");
+	public static void main(String[] args, WorkflowServiceImpl impl) {
+		GraphicalBetService betService = new GraphicalBetService("BetService", "se.lnu.course4dv109.service.bet", impl);
 		
 		Map<String, Object> customProperties = betService.getServiceDescription().getCustomProperties();
 		customProperties.put("Performance", 1);

@@ -11,7 +11,7 @@ public class Client extends CompositeServiceClient {
 	
 	private static int userId = 0;
 	
-	public static void main(String[] args) {	
+	public static double main(String[] args) {	
 		userId++;
 		Client client = new Client(userId);
 
@@ -27,8 +27,10 @@ public class Client extends CompositeServiceClient {
 		    System.out.println("QoS requirement:" + qosRequirement );
 		    result = (double)client.invokeCompositeService(qosRequirement, "3333-3333", userId, odds, bets, profits, result);
 		    
-		    System.out.println("Result: " + result);
+		    //Here we return because we only want to run once for the moment. Remove the return and it will run for each QoS requirement
+		    return result;
 		}
+		return 0;
 	}
 	
 	public Client(int userId) {

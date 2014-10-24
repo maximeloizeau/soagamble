@@ -9,6 +9,7 @@ import se.lnu.course4dv109.service.atomic.SportsEventsService;
 import se.lnu.course4dv109.service.composite.BetCompositeService;
 import service.registry.ServiceRegistry;
 
+import com.lnu.course4dv109.service.actomic.graphical.GraphicalSportsEventsService;
 import com.lnu.soagamble2.client.ServerMessageGeneratorService;
 import com.lnu.soagamble2.client.WorkflowService;
 import com.lnu.soagamble2.client.event.UpdateUIEvent;
@@ -22,16 +23,17 @@ import de.novanic.eventservice.service.RemoteEventServiceServlet;
 @SuppressWarnings("serial")
 public class WorkflowServiceImpl extends RemoteEventServiceServlet implements
 WorkflowService, ServerMessageGeneratorService {
-
+	
+	public String result;
 
 	@Override
 	public String initialize() {
 		String[] args = {};
 
 		ServiceRegistry.main(args);
-		BetService.main(args);
-		BankService.main(args);
-		OddsService.main(args);
+		BetService.main(args, this);
+		BankService.main(args, this);
+		OddsService.main(args, this);
 		SportsEventsService.main(args, this);
 		String[] path = {getServletContext().getRealPath("gamble-workflow.txt")};
 		BetCompositeService.main(path);
@@ -40,11 +42,11 @@ WorkflowService, ServerMessageGeneratorService {
 		return "OK";
 	}
 	
-	public String createClient() {
+	public Double createClient() {
 		String[] args = {};
-		Client.main(args);
+		Double result = Client.main(args);
 		
-		return "Client created";
+		return Math.floor(result * 100) / 100;
 	}
 
 	public void updateClientUI(String[] object, int state) {
