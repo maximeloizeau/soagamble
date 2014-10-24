@@ -58,18 +58,26 @@ public class OddsService extends AtomicService {
 	}
 	
 	private void computeOdds(int matchId) {
-		double home = this.getRandom();
-		double draw = this.getRandom();
-		double away = this.getRandom();
+		// Generate the percentage of winning of each odd
+		int homeChance = random.nextInt(50) + 10;
+		System.out.println("Homechance : "  + homeChance);
+		int drawChance = random.nextInt(100 - homeChance - 25) + 10;
+		System.out.println("DrawChance : "  + drawChance);
+		int awayChance = 100 - homeChance - drawChance;
+		System.out.println("AwayChance : "  + awayChance);
+		
+		// Tweak the odds a little so it can be in favor of the booking system
+		double home = 1/( ((double)homeChance) + random.nextInt(5) / 10) * 100;
+		double draw = 1/( ((double)drawChance) + random.nextInt(5) / 10) * 100;
+		double away = 1/( ((double)awayChance) + random.nextInt(5) / 10) * 100;
+		
+		home = Math.floor(home*100)/100;
+		draw = Math.floor(draw*100)/100;
+		away = Math.floor(away*100)/100;
 		
 		Odds odds = new Odds(home, draw, away);
 		
 		this.computeOdds.put(matchId, odds);
-	}	
-	
-	private double getRandom() {
-		double val = random.nextInt(100);
-		return (val / 10.0)+1;
 	}
 	
 	
