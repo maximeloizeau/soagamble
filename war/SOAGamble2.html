@@ -25,10 +25,98 @@
 <!--                                           -->
 <script type="text/javascript" language="javascript"
 	src="soagamble2/soagamble2.nocache.js"></script>
-	
+
 <script>
-	function print(name) {
-		alert(name);
+	var assets = 1000.0;
+	
+	function printSportEventTable(events) {
+		var eventTable = document.getElementById("eventTable");
+		events.forEach(function(entry) {
+	    	var tr = document.createElement("tr");
+	    	var td = document.createElement("td");
+	    	tr.appendChild(td);
+	    	var text = document.createTextNode(entry);
+			td.appendChild(text);
+			eventTable.appendChild(tr);
+		});
+	}
+	
+	function printOdds(odds){
+
+		var eventTable = document.getElementById("eventTable");
+	
+		for(var i=0; i<eventTable.rows.length;i++){
+			if(eventTable.rows[i].cells.length==1){
+				var td = document.createElement("td");
+				var txt = document.createTextNode(odds[0]+" / "+odds[1]+" / "+odds[2]);
+				td.appendChild(txt);
+				eventTable.rows[i].appendChild(td);
+				break;
+			}
+		
+		}
+	}
+	
+	function printBet(bet){
+		if(bet!=undefined){
+			var eventTable = document.getElementById("eventTable");
+	
+			for(var i=0; i<eventTable.rows.length;i++){
+				if(eventTable.rows[i].cells.length==2){
+					var td = document.createElement("td");
+					var txt = document.createTextNode(bet[0]);
+					td.appendChild(txt);
+					eventTable.rows[i].appendChild(td);
+					break;
+				}
+		
+			}
+		}
+		
+	}
+	
+	function printProfit(profit){
+		var eventTable = document.getElementById("eventTable");
+	
+		for(var i=0; i<eventTable.rows.length;i++){
+			if(eventTable.rows[i].cells.length==3){
+				var td = document.createElement("td");
+				var txt = document.createTextNode(profit[0]+"€");
+				td.appendChild(txt);
+				eventTable.rows[i].appendChild(td);
+				break;
+			}
+		
+		}
+	}
+	function displayProfit(profit){
+		var div = document.getElementById("profits");
+		var text = document.createTextNode("Your profits : "+profit+" €");
+		div.appendChild(text);
+		
+		assets = assets+profit;
+		computeAssets(0);
+		
+	}
+	
+	function initiateSequence(){
+		document.getElementById("profits").innerHTML="";
+		var table = document.getElementById("eventTable");
+		for(var i = table.rows.length - 1; i > 0; i--)
+		{
+    		table.deleteRow(i);
+		}
+		launchWorkflow();
+		
+	}
+	
+	function computeAssets(paid){
+		assets = assets-paid;
+		console.log(assets, paid);
+		var span = document.getElementById("assets");
+		span.innerHTML="";
+		var txt = document.createTextNode("Available : "+assets+"€");
+		span.appendChild(txt);
 	}
 </script>
 </head>
@@ -53,7 +141,28 @@
 	</noscript>
 	<h1>Gambling SOA system</h1>
 	<p>
-		Click here to <a href="javascript:launchWorkflow();">launch the automatic bet sequence</a>
+		<span id="assets">Available : 1000.0€</span><br/>
+		Click here to <a href="javascript:initiateSequence()">launch the automatic bet sequence</a>
 	</p>
+
+	<table id="eventTable">
+		<tr>
+			<th>
+				Event
+			</th>
+			<th>
+				Odds
+			</th>
+			<th>
+				Bet
+			</th>
+			<th>
+				Winnings
+			</th>
+		</tr>
+	</table>
+	<br/>
+	<div id="profits">
+	</div>
 </body>
 </html>
