@@ -8,7 +8,7 @@
   <!-- Servlets -->
   <servlet>
     <servlet-name>workflowServlet</servlet-name>
-    <servlet-class>com.lnu.soagamble2.server.WorkflowServiceImpl</servlet-class>
+    <servlet-class>com.webapp.server.WorkflowServiceImpl</servlet-class>
   </servlet>
   
   <servlet-mapping>
@@ -34,7 +34,7 @@
     
     <servlet>
         <servlet-name>ServerMessageGeneratorService</servlet-name>
-        <servlet-class>com.lnu.soagamble2.server.WorkflowServiceImpl</servlet-class>
+        <servlet-class>com.webapp.server.WorkflowServiceImpl</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ServerMessageGeneratorService</servlet-name>
