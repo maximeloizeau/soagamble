@@ -5,7 +5,6 @@ import java.util.List;
 
 import se.lnu.course4dv109.object.Bet;
 import se.lnu.course4dv109.object.Odds;
-import se.lnu.course4dv109.object.SportEvent;
 import service.composite.CompositeServiceClient;
 
 public class Client extends CompositeServiceClient {
