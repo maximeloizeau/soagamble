@@ -239,7 +239,7 @@ Element.prototype.toGrey = function() {
             element.toGrey();
         } else {
             element.attr({
-                fill: "#FFFFFF"
+                fill: "#BBBBBB"
             });
         }
     });

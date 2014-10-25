@@ -14,6 +14,15 @@ function Editor() {
         FORLOOP: "forLoop",
         ENDFOR: "endFor"
     };
+    
+    this.COLORS = {
+    	ENT: "#0066FF",
+    	CODE: "#E88000",
+    	INSTR: "#ffa500",
+    	BLOCK: "#B21618",
+    	ENT_BG: "#5BB9FF",
+    	TEXT: "#FFFFFF"
+    };
 }
 
 Editor.prototype.start = function() {

@@ -3,6 +3,9 @@ function CompositeCode(s, value, x, y) {
     
     this.CALL_WIDTH = 100;
     this.CALL_HEIGHT = 40;
+    this.ATTR = {
+        fill: editor.COLORS.CODE
+    };
     
     this.value = value;
     this.x = x;
@@ -20,11 +23,7 @@ CompositeCode.prototype.draw = function() {
        this.CALL_HEIGHT
     );
       
-    this.rect.attr({
-        fill: "#d0d683",
-        stroke: "#000",
-        strokeWidth: 0.5
-    });
+    this.rect.attr(this.ATTR);
     
     var size = this.value.length * 3;
     this.text = this.snap.text(
@@ -35,6 +34,7 @@ CompositeCode.prototype.draw = function() {
     this.text.attr({
       fontFamily: 'Arial',
       fontSize: 14,
+      fill: editor.COLORS.TEXT,
       textAnchor: 'center'
     });
 
@@ -50,9 +50,5 @@ CompositeCode.prototype.getWorkflowCode = function() {
 };
 
 CompositeCode.prototype.toColor = function() {
-    this.rect.attr({
-        fill: "#d0d683",
-        stroke: "#000",
-        strokeWidth: 0.5
-    });
+    this.rect.attr(this.ATTR);
 };

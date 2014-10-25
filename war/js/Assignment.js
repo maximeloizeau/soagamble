@@ -3,6 +3,9 @@ function Assignment(s, name, x, y) {
     
     this.WIDTH = 100;
     this.HEIGHT = 40;
+    this.ATTR = {
+        fill: editor.COLORS.INSTR
+    };
     
     this.name = name;
     this.x = x;
@@ -22,11 +25,7 @@ Assignment.prototype.draw = function() {
    
     this.rect.click(this.onElementClick.bind(this, this));
    
-    this.rect.attr({
-        fill: "#e58282",
-        stroke: "#000",
-        strokeWidth: 0.5
-    });
+    this.rect.attr(this.ATTR);
     
     // TODO : fix the centering
     var size = this.name.length * 5;
@@ -38,6 +37,7 @@ Assignment.prototype.draw = function() {
     this.text.attr({
       fontFamily: 'Arial',
       fontSize: 16,
+      fill: editor.COLORS.TEXT,
       textAnchor: 'left'
     });
 
@@ -53,9 +53,5 @@ Assignment.prototype.getWorkflowCode = function() {
 };
 
 Assignment.prototype.toColor = function() {
-    this.rect.attr({
-        fill: "#e58282",
-        stroke: "#000",
-        strokeWidth: 0.5
-    });
+    this.rect.attr(this.ATTR);
 };

@@ -2,6 +2,9 @@ function ConditionnalIf(s, condition, x, y) {
     Element.call(this, s);
     
     this.CALL_WIDTH = 20;
+    this.ATTR = {
+        fill: editor.COLORS.BLOCK
+    };
     
     this.condition = condition;
     this.x = x;
@@ -22,9 +25,7 @@ ConditionnalIf.prototype.draw = function() {
        points
     );
       
-    this.rect.attr({
-        fill: "#50e272"
-    });
+    this.rect.attr(this.ATTR);
     
     var size = this.condition.length * 4;
     this.text = this.snap.text(

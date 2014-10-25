@@ -3,6 +3,9 @@ function ServiceCall(s, name, entity, x, y) {
     
     this.CALL_WIDTH = 100;
     this.CALL_HEIGHT = 40;
+    this.ATTR = {
+        fill: editor.COLORS.INSTR
+    };
     
     this.name = name;
     this.serviceParent = entity;
@@ -23,11 +26,7 @@ ServiceCall.prototype.draw = function() {
    
     this.rect.click(this.onElementClick.bind(this, this));
    
-    this.rect.attr({
-        fill: "#FFA500",
-        stroke: "#000",
-        strokeWidth: 0.5
-    });
+    this.rect.attr(this.ATTR);
     
     this.rect.mouseover(this.mouseover.bind(this));
     this.rect.mouseout(this.mouseout.bind(this));    
@@ -53,6 +52,7 @@ ServiceCall.prototype.mouseover = function() {
     this.text.attr({
       fontFamily: 'Arial',
       fontSize: 20,
+      fill: editor.COLORS.TEXT,
       textAnchor: 'left'
     });
     
@@ -74,6 +74,7 @@ ServiceCall.prototype.mouseout = function() {
     this.text.attr({
       fontFamily: 'Arial',
       fontSize: 20,
+      fill: editor.COLORS.TEXT,
       textAnchor: 'left'
     });
     
@@ -96,9 +97,5 @@ ServiceCall.prototype.getWorkflowCode = function() {
 };
 
 ServiceCall.prototype.toColor = function() {
-    this.rect.attr({
-        fill: "#FFA500",
-        stroke: "#000",
-        strokeWidth: 0.5
-    });
+    this.rect.attr(this.ATTR);
 };

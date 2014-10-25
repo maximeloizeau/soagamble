@@ -200,6 +200,21 @@ Parser.prototype.highlight = function(name) {
     }
 
     if(this.lastHighlight) {
+    	var topY = this.lastHighlight.getObject().getBBox().y;
+    	var botY = this.lastHighlight.getObject().getBBox().y2;
+    	
+    	var topScreen = window.scrollY;
+    	var botScreen = window.scrollY + window.innerHeight;
+    	
+    	if(topY > topScreen && botY < botScreen) {
+    		
+    	} else {
+    		window.scrollTo(
+    			this.lastHighlight.getObject().getBBox().x,
+    			this.lastHighlight.getObject().getBBox().y - 300
+        	);
+    	}
+    	
         this.lastHighlight.toColor();
     }
 };

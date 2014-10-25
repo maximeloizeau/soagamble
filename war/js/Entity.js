@@ -7,12 +7,10 @@ function Entity(s, name, nextTo) {
     this.SERVICE_HEIGHT = 50;
     this.SERVICE_LIFELINE = 800;
     this.SERVICE_ATTR = {
-        fill: "#7a6ece",
-        stroke: "#000",
-        strokeWidth: 1
+        fill: editor.COLORS.ENT
     };
     this.LIFE_ATTR = {
-        stroke: "#199127",
+        stroke: editor.COLORS.ENT_BG,
         strokeWidth: 6
     };
     
@@ -65,6 +63,7 @@ Entity.prototype.draw = function() {
     this.text.attr({
       fontFamily: 'Arial',
       fontSize: 20,
+      fill: editor.COLORS.TEXT,
       textAnchor: 'left'
     });
 

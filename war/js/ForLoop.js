@@ -2,6 +2,9 @@ function ForLoop(s, condition, x, y) {
     Element.call(this, s);
 
     this.CALL_WIDTH = 20;
+    this.ATTR = {
+        fill: editor.COLORS.BLOCK
+    };
 
     this.condition = "for " + condition;
     this.x = x;
@@ -14,9 +17,7 @@ ForLoop.prototype.constructor = ForLoop;
 
 ForLoop.prototype.draw = function() {
     this.obj = this.snap.circle(this.x, this.y, this.CALL_WIDTH);
-    this.obj.attr({
-        fill: "#d3ea57"
-    });
+    this.obj.attr(this.ATTR);
 
     var size = this.condition.length * 4;
     this.text = this.snap.text(
@@ -56,12 +57,7 @@ ForLoop.prototype.setFrame = function(endX, endY) {
         45,
         20
     );
-    titleFrame.attr({
-        fill: "#333",
-        fillOpacity: 0.5,
-        stroke: "#333",
-        strokeWidth: 0.5
-    });
+    titleFrame.attr(this.ATTR);
 
     var titleText = this.snap.text(
         titleFrame.getBBox().x + 5,
@@ -71,6 +67,7 @@ ForLoop.prototype.setFrame = function(endX, endY) {
     titleText.attr({
         fontFamily: 'Arial',
         fontSize: 12,
+        fill: editor.COLORS.TEXT,
         textAnchor: 'left'
     });
 
