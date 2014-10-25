@@ -25,6 +25,7 @@ public class WorkflowServiceImpl extends RemoteEventServiceServlet implements
 WorkflowService, ServerMessageGeneratorService {
 	
 	public String result;
+	public int waitingTime = 1000;
 
 	@Override
 	public String initialize() {
@@ -36,13 +37,15 @@ WorkflowService, ServerMessageGeneratorService {
 		OddsService.main(args, this);
 		SportsEventsService.main(args, this);
 		String[] path = {getServletContext().getRealPath("gamble-workflow.txt")};
-		BetCompositeService.main(path);
+		BetCompositeService.main(path, this);
 
 
 		return "OK";
 	}
 	
-	public Double createClient() {
+	public Double createClient(int waitingTime) {
+		this.waitingTime = waitingTime;
+		
 		String[] args = {};
 		Double result = Client.main(args);
 		
@@ -53,6 +56,13 @@ WorkflowService, ServerMessageGeneratorService {
 		Event theEvent = new UpdateUIEvent(object, state);
         //add the event, so clients can receive it
         addEvent(UpdateUIEvent.SERVER_MESSAGE_DOMAIN, theEvent);
+        
+        try {
+			Thread.sleep(this.waitingTime);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Override

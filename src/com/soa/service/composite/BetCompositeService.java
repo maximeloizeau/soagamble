@@ -7,6 +7,7 @@ import com.soa.object.Choice;
 import com.soa.object.Odds;
 import com.soa.object.SportEvent;
 import com.soa.qos.BestPerformanceQoS;
+import com.soa.service.atomic.graphical.GraphicalBetCompositeService;
 import com.webapp.server.WorkflowServiceImpl;
 
 import service.auxiliary.LocalOperation;
@@ -18,8 +19,8 @@ public class BetCompositeService extends CompositeService {
 	private String pathToWorkflow;
 	
 	public static void main(String[] args, WorkflowServiceImpl impl) {
-		GraphicalBetCompositeService bcs = new GraphicalBetCompositeService(args[0], impl);
-		bcs.start();
+		BetCompositeService compositeService = new GraphicalBetCompositeService(args[0], impl);
+		compositeService.start();
 	}
 	
 	public BetCompositeService(String path) {
@@ -28,10 +29,9 @@ public class BetCompositeService extends CompositeService {
 	}
 	
 	public void start() {
-		BetCompositeService compositeService = new BetCompositeService(pathToWorkflow);
-		compositeService.addQosRequirement("BestPerformance", new BestPerformanceQoS());
-		compositeService.startService();
-		compositeService.register();
+		this.addQosRequirement("BestPerformance", new BestPerformanceQoS());
+		this.startService();
+		this.register();
 	}
 	
 	@LocalOperation

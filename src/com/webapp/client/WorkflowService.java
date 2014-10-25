@@ -9,5 +9,5 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 @RemoteServiceRelativePath("workflow")
 public interface WorkflowService extends RemoteService {
 	String initialize();
-	Double createClient();
+	Double createClient(int waitingTime);
 }

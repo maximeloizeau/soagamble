@@ -25,113 +25,114 @@ public class SOAGamble2 implements EntryPoint {
 			+ "connection and try again.";
 
 	/**
-	 * Create a remote service proxy to talk to the server-side Greeting service.
+	 * Create a remote service proxy to talk to the server-side Greeting
+	 * service.
 	 */
-	private final static WorkflowServiceAsync workflowService = GWT.create(WorkflowService.class);
+	private final static WorkflowServiceAsync workflowService = GWT
+			.create(WorkflowService.class);
 
 	public static native void printSportEventTable(JsArrayString events)/*-{
-	  $wnd.printSportEventTable(events); 
+		$wnd.app.printSportEventTable(events);
 	}-*/;
-	
+
 	public static native void printOdds(JsArrayString jsArrayString)/*-{
-	  $wnd.printOdds(jsArrayString); 
+		$wnd.app.printOdds(jsArrayString);
 	}-*/;
-	
+
 	public static native void printBet(JsArrayString jsArrayString)/*-{
-	  $wnd.printBet(jsArrayString); 
+		$wnd.app.printBet(jsArrayString);
 	}-*/;
-	
+
 	public static native void printProfit(JsArrayString jsArrayString)/*-{
-	  $wnd.printProfit(jsArrayString); 
+		$wnd.app.printProfit(jsArrayString);
 	}-*/;
-	
+
 	public static native void displayProfit(double profit)/*-{
-	  $wnd.displayProfit(profit); 
+		$wnd.app.displayProfit(profit);
 	}-*/;
-	
+
 	public static native void computeAssets(double paid)/*-{
-	  $wnd.computeAssets(paid); 
+		$wnd.app.computeAssets(paid);
 	}-*/;
-	
+
 	public static native void highlight(String call)/*-{
-	  $wnd.highlight(call); 
+		$wnd.parser.highlight(call);
 	}-*/;
-	
+
 	public static native void workflowInExecution()/*-{
-	  $wnd.workflowInExecution(); 
+		$wnd.parser.workflowInExecution();
 	}-*/;
-	
+
 	public static native void workflowFinished()/*-{
-	  $wnd.workflowFinished(); 
+		$wnd.parser.workflowFinished();
 	}-*/;
-	
+
 	/**
 	 * This is the entry point method.
 	 */
 	public void onModuleLoad() {
 		exportJSFunction();
 
-		RemoteEventService theRemoteEventService = RemoteEventServiceFactory.getInstance().getRemoteEventService();
-		//add a listener to the SERVER_MESSAGE_DOMAIN
-		theRemoteEventService.addListener(UpdateUIEvent.SERVER_MESSAGE_DOMAIN, new RemoteEventListener() {
-			public void apply(Event anEvent) {
-				System.out.println("APPLY");
-				if(anEvent instanceof UpdateUIEvent) {
-					System.out.println("UPDATEUI EVENT");
-					UpdateUIEvent event = (UpdateUIEvent)anEvent;
-					int state = ((UpdateUIEvent) anEvent).getState();
-					
-					String[] tab = event.getGeneratedObject();
-					JsArrayString jsArrayString = arrayToJsArray(tab);
-					
-					switch(state){
-					case State.GET_SPORT_EVENTS:
-						printSportEventTable(jsArrayString);
-						break;
-					case State.REQUEST_ODDS:
-						printOdds(jsArrayString);
-						break;
-					case State.PLACE_BET:
-						printBet(jsArrayString);
-						break;
-					case State.REQUEST_PROFIT:
-						printProfit(jsArrayString);
-						break;
-					case State.MAKE_PAYMENT:
-						double paid = Double.parseDouble(tab[0]);
-						computeAssets(paid);
-						break;
+		RemoteEventService theRemoteEventService = RemoteEventServiceFactory
+				.getInstance().getRemoteEventService();
+		// add a listener to the SERVER_MESSAGE_DOMAIN
+		theRemoteEventService.addListener(UpdateUIEvent.SERVER_MESSAGE_DOMAIN,
+				new RemoteEventListener() {
+					public void apply(Event anEvent) {
+						if (anEvent instanceof UpdateUIEvent) {
+							UpdateUIEvent event = (UpdateUIEvent) anEvent;
+							int state = ((UpdateUIEvent) anEvent).getState();
+
+							String[] tab = event.getGeneratedObject();
+							JsArrayString jsArrayString = arrayToJsArray(tab);
+
+							switch (state) {
+							case State.GET_SPORT_EVENTS:
+								printSportEventTable(jsArrayString);
+								break;
+							case State.REQUEST_ODDS:
+								printOdds(jsArrayString);
+								break;
+							case State.PLACE_BET:
+								printBet(jsArrayString);
+								break;
+							case State.REQUEST_PROFIT:
+								printProfit(jsArrayString);
+								break;
+							case State.MAKE_PAYMENT:
+								double paid = Double.parseDouble(tab[0]);
+								computeAssets(paid);
+								break;
+							case State.LOCAL_OPERATION:
+								System.out.println("### LOCAL " + tab[0]);
+							}
+
+							highlight(tab[tab.length - 1]);
+						}
 					}
-					
-					highlight(tab[tab.length-1]);
-				}
-			}
-		});
+				});
 
 		workflowService.initialize(callback);
 	}
 
-	
-	private JsArrayString arrayToJsArray(String[] tab){
+	private JsArrayString arrayToJsArray(String[] tab) {
 		JsArrayString jsArrayString = JsArrayString.createArray().cast();
-	    for (String s : tab) {
-	        jsArrayString.push(s);
-	    }
-	    return jsArrayString;
+		for (String s : tab) {
+			jsArrayString.push(s);
+		}
+		return jsArrayString;
 	}
-	
+
 	public static native void exportJSFunction()/*-{
-	  $wnd.launchWorkflow = @com.webapp.client.SOAGamble2::launchWorkflow();
+		$wnd.launchWorkflow = @com.webapp.client.SOAGamble2::launchWorkflow(*);
 	}-*/;
-	
-	
 
-	public static void launchWorkflow(){
+	public static void launchWorkflow(int waitingTime) {
 		workflowInExecution();
-		workflowService.createClient(clientCallback);	
+		workflowService.createClient(waitingTime, clientCallback);
 	}
 
-	static AsyncCallback<String> callback = new AsyncCallback<String>(){
+	static AsyncCallback<String> callback = new AsyncCallback<String>() {
 
 		@Override
 		public void onFailure(Throwable caught) {
@@ -141,12 +142,12 @@ public class SOAGamble2 implements EntryPoint {
 
 		@Override
 		public void onSuccess(String result) {
-			
+
 		}
 
 	};
-	
-	static AsyncCallback<Double> clientCallback = new AsyncCallback<Double>(){
+
+	static AsyncCallback<Double> clientCallback = new AsyncCallback<Double>() {
 
 		@Override
 		public void onFailure(Throwable caught) {

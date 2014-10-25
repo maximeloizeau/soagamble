@@ -1,204 +1,110 @@
 <!doctype html>
-<!-- The DOCTYPE declaration above will set the     -->
-<!-- browser's rendering engine into                -->
-<!-- "Standards Mode". Replacing this declaration   -->
-<!-- with a "Quirks Mode" doctype is not supported. -->
-
 <html>
 <head>
-<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+        <title>Web Application Starter Project</title>
+        <script type="text/javascript" src="soagamble2/soagamble2.nocache.js"></script>
+        
+        <script src="lib/snap.svg-min.js"></script>
+        <script src="js/Editor.js"></script>
+        <script src="js/Parser.js"></script>
+        <script src="js/App.js"></script>
+        <script src="js/Element.js"></script>
+        <script src="js/Arrow.js"></script>
+        <script src="js/Assignment.js"></script>
+        <script src="js/Entity.js"></script>
+        <script src="js/ServiceCall.js"></script>
+        <script src="js/CompositeCode.js"></script>
+        <script src="js/ConditionnalIf.js"></script>
+        <script src="js/ConditionnalElse.js"></script>
+        <script src="js/ConditionnalEndIf.js"></script>
+        <script src="js/ForLoop.js"></script>
+        <script src="js/EndFor.js"></script>
+        <script src="js/diagram.js"></script>
+        
+        <link rel="stylesheet" href="style.css" />
+    </head>
+    
+    <body>
+    	<nav id="navpage">
+    		<a id="startEditor">Editor</a>
+    		<a id="startParser">Parser</a>
+    		<a id="startApp">Application</a>
+    	</nav>
 
-<!--                                                               -->
-<!-- Consider inlining CSS to reduce the number of requested files -->
-<!--                                                               -->
-<link type="text/css" rel="stylesheet" href="SOAGamble2.css">
+		<div id="homepage"></div>
 
-<!--                                           -->
-<!-- Any title is fine                         -->
-<!--                                           -->
-<title>Web Application Starter Project</title>
+        <div id="app">
+            <h1>Gambling SOA system</h1>
+            <p>
+                <span id="assets">Available : 1000.00 €</span><br/>
+                Click here to <a href="javascript:app.initiateSequence()">launch the automatic bet sequence</a>
+            </p>
 
-<!--                                           -->
-<!-- This script loads your compiled module.   -->
-<!-- If you add any GWT meta tags, they must   -->
-<!-- be added before this line.                -->
-<!--                                           -->
-<script type="text/javascript" src="soagamble2/soagamble2.nocache.js"></script>
+            <table id="eventTable">
+                <tr>
+                    <th rowspan="2" class="event-col">
+                        Event
+                    </th>
+                    <th colspan="3" class="odds-col">
+                        Odds
+                    </th>
+                    <th colspan="2" rowspan="2" class="bet-col">
+                        Bet
+                    </th>
+                    <th colspan="2" rowspan=2 class="result-col">
+                        Result
+                    </th>
+                </tr>
+                <tr>
+                	<th>H</th>
+                	<th>D</th>
+                	<th>A</th>
+                </tr>
+            </table>
+            <br/>
+            <div id="paid_money"></div>
+            <div id="profits"></div>
+            <div id="winnings"></div>
+        </div>
+        
+        <div id="parser">
+            <textarea id="workflowToParse" cols=90 rows=20></textarea>
+            <br/>
+            <button id="startParsing" class="mainbutton">Parse</button>
+        </div>
 
-<script>
-	var assets = 1000.0;
-	var winnings = 0;
-	
-	function printSportEventTable(events) {
-		var eventTable = document.getElementById("eventTable");
-		events.forEach(function(entry) {
-	    	var tr = document.createElement("tr");
-	    	var td = document.createElement("td");
-	    	tr.appendChild(td);
-	    	var text = document.createTextNode(entry);
-	    	
-	    	var start = entry.indexOf("(") + 1;
-	    	var end = entry.indexOf(")") - 1;
-	    	var matchId = entry.substr(start, end);
-	    	
-	    	tr.id = "match_" + matchId;
-	    	
-			td.appendChild(text);
-			eventTable.appendChild(tr);
-		});
-	}
-	
-	function printOdds(odds){
-		var row = document.getElementById("match_" + odds[0]);
-	
-		for(var j=1; j<odds.length;j++){
-			var td = document.createElement("td");
-			td.style.paddingRight = "5px";
-			td.style.textAlign = "right";
-			td.style.width = "40px";
-			var txt = document.createTextNode(odds[j]);
-			td.appendChild(txt);
-			row.appendChild(td);
-		}
-	}
-	
-	function printBet(bet){
-		if (bet != undefined){			
-			var row = document.getElementById("match_" + bet[0]);
-		
-			// amount			
-			var td = document.createElement("td");
-			td.style.paddingRight = "5px";
-			td.style.textAlign = "right";
-			td.style.width = "60px";
-			var txt = document.createTextNode(bet[1]);
-			td.appendChild(txt);
-			row.appendChild(td);
-			
-			// choice			
-			var td = document.createElement("td");
-			td.style.paddingLeft = "5px";
-			td.style.paddingRight = "5px";
-			var txt = document.createTextNode(bet[2]);
-			td.appendChild(txt);
-			row.appendChild(td);	
-		}
-		
-	}
-	
-	function printProfit(profit){
-		if (profit != undefined){			
-			var row = document.getElementById("match_" + profit[0]);
-			
-			// choice			
-			var td = document.createElement("td");
-			td.style.paddingLeft = "5px";
-			td.style.paddingRight = "5px";
-			td.style.textAlign = "center";
-			var txt = document.createTextNode(profit[1]);
-			td.appendChild(txt);
-			row.appendChild(td);	
-			
-			// amount			
-			var td = document.createElement("td");
-			td.style.paddingRight = "5px";
-			td.style.textAlign = "right";
-			td.style.width = "60px";
-			var txt = document.createTextNode(profit[2]);
-			td.appendChild(txt);
-			row.appendChild(td);
-		}
-	}
-	
-	function displayProfit(profit){
-		var div = document.getElementById("profits");
-		div.innerText = "Your profits : "+profit.toFixed(2)+" €";
-		
-		assets = assets + profit;
-		winnings = profit - winnings;
-		
-		var div = document.getElementById("winnings");
-		div.innerText = "Winnings : "+winnings.toFixed(2)+" €";
-		
-		computeAssets(0);
-		
-	}
-	
-	function initiateSequence(){
-		document.getElementById("profits").innerHTML="";
-		var table = document.getElementById("eventTable");
-		for(var i = table.rows.length - 1; i > 0; i--)
-		{
-    		table.deleteRow(i);
-		}
-		
-		document.getElementById("winnings").innerText = "";
-		document.getElementById("paid_money").innerText = "";
-		document.getElementById("profits").innerText = "";
-		
-		launchWorkflow();
-	}
-	
-	function computeAssets(paid){
-		assets = assets-paid;
-		console.log(assets, paid);
-		var span = document.getElementById("assets");
-		span.innerHTML="";
-		var txt = document.createTextNode("Available : "+assets.toFixed(2)+" €");
-		span.appendChild(txt);
-		
-		if (paid > 0) {
-			winnings = paid;
-			var div = document.getElementById("paid_money");
-			div.innerText = "You paid: " + paid.toFixed(2) + " €";
-		}
-	}
-</script>
-</head>
+        <div id="editor">
+            <nav id="toolbar">
+            	<input type="number" id="waitingTime" value="0"/>
+            	
+                <input type="text" id="entityName" /><button id="addEntity">Add entity</button>
 
-<!--                                           -->
-<!-- The body can have arbitrary html, or      -->
-<!-- you can leave the body empty if you want  -->
-<!-- to create a completely dynamic UI.        -->
-<!--                                           -->
-<body>
+                <label class="labelinput" for="inputs">Input parameters (separated by commas) :</label>
+                <input type="text" id="inputs" />
 
-	<!-- OPTIONAL: include this if you want history support -->
-	<iframe src="javascript:''" id="__gwt_historyFrame" tabIndex='-1'
-		style="position: absolute; width: 0; height: 0; border: 0"></iframe>
+                <label class="labelinput" for="output">Output parameter :</label>
+                <input type="text" id="output" />
 
-	<!-- RECOMMENDED if your web app will not function without JavaScript enabled -->
-	<noscript>
-		<div
-			style="width: 22em; position: absolute; left: 50%; margin-left: -11em; color: red; background-color: white; border: 1px solid red; padding: 4px; font-family: sans-serif">
-			Your web browser must have JavaScript enabled in order for this
-			application to display correctly.</div>
-	</noscript>
-	<h1>Gambling SOA system</h1>
-	<p>
-		<span id="assets">Available : 1000.00 €</span><br/>
-		Click here to <a href="javascript:initiateSequence()">launch the automatic bet sequence</a>
-	</p>
+                <label class="toggle-btn"><input type="radio" name="objectType" value="serviceCall" checked="checked"/>Service call</label>
+                <label class="toggle-btn"><input type="radio" name="objectType" value="compositeCode"/>Composite code</label>
+                <label class="toggle-btn"><input type="radio" name="objectType" value="if"/>If</label>
+                <label class="toggle-btn"><input type="radio" name="objectType" value="else"/>Else</label>
+                <label class="toggle-btn"><input type="radio" name="objectType" value="endIf"/>EndIf</label>
+                <label class="toggle-btn"><input type="radio" name="objectType" value="forLoop"/>ForLoop</label>
+                <label class="toggle-btn"><input type="radio" name="objectType" value="endFor"/>EndFor</label>
 
-	<table id="eventTable">
-		<tr>
-			<th style="width:300px">
-				Event
-			</th>
-			<th colspan="3" style="width:200px">
-				Odds
-			</th>
-			<th colspan="2" style="width:100px">
-				Bet
-			</th>
-			<th colspan="2" style="width:100px">
-				Result
-			</th>
-		</tr>
-	</table>
-	<br/>
-	<div id="paid_money"></div>
-	<div id="profits"></div>
-	<div id="winnings"></div>
-</body>
+                <button id="generate" class="mainbutton">Generate</button>
+                <button id="execute" class="mainbutton">Execute Workflow</button>
+
+                <textarea id="generated-workflow" rows=20></textarea>
+            </nav>
+            <div id="svgpanel">
+                <svg id="svg" height="2000px" width="1000px" viewBox="0 600 1200 1200"></svg>
+            </div>
+        </div>
+
+    </body>
 </html>
+
