@@ -19,7 +19,7 @@ public class SportEvent {
 		this.endDate = endDate;
 	}
 	
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 

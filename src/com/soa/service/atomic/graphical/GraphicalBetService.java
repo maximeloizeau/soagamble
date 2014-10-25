@@ -21,23 +21,36 @@ public class GraphicalBetService extends BetService {
 	@ServiceOperation
 	public Bet placeBet(SportEvent event, int userId, Choice choice, double amount){
 		Bet bet = super.placeBet(event, userId, choice, amount);
-		String ch;
-		switch(choice){
-		case HOME_TEAM:
-			ch="Home team";
-			break;
-		case AWAY_TEAM:
-			ch="Away team";
-			break;
-		case DRAW:
-			ch="Draw";
-			break;
-		default:ch="ND";
-		}
-		String[] am = {""+amount+"€ on "+ch}; 
-		impl.updateClientUI(am, State.PLACE_BET);
+		String ch = this.getDecision(choice);
+
+		String[] tab = new String[3];
+		tab[0] = event.getId().toString();
+		tab[1] = amount + " €";
+		tab[2] = "on "+ch;
+		impl.updateClientUI(tab, State.PLACE_BET);
+		
 		return bet;
 	}
 
-
+	private String getDecision(Choice choice) {
+		String ch;
+		
+		switch(choice){
+			case HOME_TEAM:
+				ch="Home";
+				break;
+				
+			case AWAY_TEAM:
+				ch="Away";
+				break;
+				
+			case DRAW:
+				ch="Draw";
+				break;
+				
+			default:ch="ND";
+		}
+		
+		return ch;
+	}
 }

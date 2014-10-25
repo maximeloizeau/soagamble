@@ -17,9 +17,11 @@ public class GraphicalSportsEventsService extends SportsEventsService {
 	public SportEvent[] getSportEvents(){
 		SportEvent[] list = super.getSportEvents();
 		String[] events = new String[list.length];
-		for(int i=0;i<events.length;i++){
+		
+		for (int i=0;i<events.length;i++){
 			events[i] = list[i].toString();
 		}
+		
 		impl.updateClientUI(events, State.GET_SPORT_EVENTS);
 		return list; 
 	}

@@ -23,8 +23,7 @@
 <!-- If you add any GWT meta tags, they must   -->
 <!-- be added before this line.                -->
 <!--                                           -->
-<script type="text/javascript" language="javascript"
-	src="soagamble2/soagamble2.nocache.js"></script>
+<script type="text/javascript" src="soagamble2/soagamble2.nocache.js"></script>
 
 <script>
 	var assets = 1000.0;
@@ -36,57 +35,77 @@
 	    	var td = document.createElement("td");
 	    	tr.appendChild(td);
 	    	var text = document.createTextNode(entry);
+	    	
+	    	var start = entry.indexOf("(") + 1;
+	    	var end = entry.indexOf(")") - 1;
+	    	var matchId = entry.substr(start, end);
+	    	
+	    	tr.id = "match_" + matchId;
+	    	
 			td.appendChild(text);
 			eventTable.appendChild(tr);
 		});
 	}
 	
 	function printOdds(odds){
-
-		var eventTable = document.getElementById("eventTable");
+		var row = document.getElementById("match_" + odds[0]);
 	
-		for(var i=0; i<eventTable.rows.length;i++){
-			if(eventTable.rows[i].cells.length==1){
-				var td = document.createElement("td");
-				var txt = document.createTextNode(odds[0]+" / "+odds[1]+" / "+odds[2]);
-				td.appendChild(txt);
-				eventTable.rows[i].appendChild(td);
-				break;
-			}
-		
+		for(var j=1; j<odds.length;j++){
+			var td = document.createElement("td");
+			td.style.paddingRight = "5px";
+			td.style.textAlign = "right";
+			td.style.width = "40px";
+			var txt = document.createTextNode(odds[j]);
+			td.appendChild(txt);
+			row.appendChild(td);
 		}
 	}
 	
 	function printBet(bet){
-		if(bet!=undefined){
-			var eventTable = document.getElementById("eventTable");
-	
-			for(var i=0; i<eventTable.rows.length;i++){
-				if(eventTable.rows[i].cells.length==2){
-					var td = document.createElement("td");
-					var txt = document.createTextNode(bet[0]);
-					td.appendChild(txt);
-					eventTable.rows[i].appendChild(td);
-					break;
-				}
+		if (bet != undefined){			
+			var row = document.getElementById("match_" + bet[0]);
 		
-			}
+			// amount			
+			var td = document.createElement("td");
+			td.style.paddingRight = "5px";
+			td.style.textAlign = "right";
+			td.style.width = "60px";
+			var txt = document.createTextNode(bet[1]);
+			td.appendChild(txt);
+			row.appendChild(td);
+			
+			// choice			
+			var td = document.createElement("td");
+			td.style.paddingLeft = "5px";
+			td.style.paddingRight = "5px";
+			var txt = document.createTextNode(bet[2]);
+			td.appendChild(txt);
+			row.appendChild(td);	
 		}
 		
 	}
 	
 	function printProfit(profit){
-		var eventTable = document.getElementById("eventTable");
-	
-		for(var i=0; i<eventTable.rows.length;i++){
-			if(eventTable.rows[i].cells.length==3){
-				var td = document.createElement("td");
-				var txt = document.createTextNode(profit[0]+"€");
-				td.appendChild(txt);
-				eventTable.rows[i].appendChild(td);
-				break;
-			}
-		
+		if (profit != undefined){			
+			var row = document.getElementById("match_" + profit[0]);
+			
+			// choice			
+			var td = document.createElement("td");
+			td.style.paddingLeft = "5px";
+			td.style.paddingRight = "5px";
+			td.style.textAlign = "center";
+			var txt = document.createTextNode(profit[1]);
+			td.appendChild(txt);
+			row.appendChild(td);	
+			
+			// amount			
+			var td = document.createElement("td");
+			td.style.paddingRight = "5px";
+			td.style.textAlign = "right";
+			td.style.width = "40px";
+			var txt = document.createTextNode(profit[2]);
+			td.appendChild(txt);
+			row.appendChild(td);
 		}
 	}
 	function displayProfit(profit){
@@ -150,14 +169,14 @@
 			<th>
 				Event
 			</th>
-			<th>
+			<th colspan="3">
 				Odds
 			</th>
-			<th>
+			<th colspan="2">
 				Bet
 			</th>
-			<th>
-				Winnings
+			<th colspan="2">
+				Result
 			</th>
 		</tr>
 	</table>
