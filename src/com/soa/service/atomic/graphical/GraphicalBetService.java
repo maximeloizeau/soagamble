@@ -26,10 +26,11 @@ public class GraphicalBetService extends BetService {
 		String ch = this.getDecision(choice);
 		DecimalFormat f = new DecimalFormat("#0.00"); 
 
-		String[] tab = new String[3];
+		String[] tab = new String[4];
 		tab[0] = event.getId().toString();
 		tab[1] = f.format(amount) + " €";
 		tab[2] = "on "+ch;
+		tab[3] = "BetService.placeBet";
 		impl.updateClientUI(tab, State.PLACE_BET);
 		
 		return bet;

@@ -7,6 +7,7 @@ import com.soa.object.Choice;
 import com.soa.object.Odds;
 import com.soa.object.SportEvent;
 import com.soa.qos.BestPerformanceQoS;
+import com.webapp.server.WorkflowServiceImpl;
 
 import service.auxiliary.LocalOperation;
 import service.composite.CompositeService;
@@ -16,8 +17,8 @@ public class BetCompositeService extends CompositeService {
 	private double amount = 0;
 	private String pathToWorkflow;
 	
-	public static void main(String[] args) {
-		BetCompositeService bcs = new BetCompositeService(args[0]);
+	public static void main(String[] args, WorkflowServiceImpl impl) {
+		GraphicalBetCompositeService bcs = new GraphicalBetCompositeService(args[0], impl);
 		bcs.start();
 	}
 	

@@ -27,11 +27,13 @@ public class GraphicalOddsService extends OddsService {
 		
 		DecimalFormat f = new DecimalFormat("#0.00"); 
 		
-		String[] tab = new String[4];
+		String[] tab = new String[5];
 		tab[0] = match.getId().toString();
 		tab[1] = f.format(odds.getOdds(Choice.HOME_TEAM));
 		tab[2] = f.format(odds.getOdds(Choice.DRAW));
 		tab[3] = f.format(odds.getOdds(Choice.AWAY_TEAM));
+		tab[4] = "OddsService.requestOdds";
+		
 		impl.updateClientUI(tab, State.REQUEST_ODDS);
 		
 		return odds ;
@@ -43,11 +45,11 @@ public class GraphicalOddsService extends OddsService {
 		
 		DecimalFormat f = new DecimalFormat("#0.00"); 
 		
-		String[] tab = new String[3];
+		String[] tab = new String[4];
 		tab[0] = event.getId().toString();
 		tab[1] = this.getResult(event.getResult());
 		tab[2] = profit == 0 ? "-" : f.format(profit) + " €";
-		
+		tab[3] = "OddsService.requestProfits";
 		impl.updateClientUI(tab, State.REQUEST_PROFIT);
 		return profit;		
 	}

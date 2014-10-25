@@ -53,6 +53,18 @@ public class SOAGamble2 implements EntryPoint {
 	  $wnd.computeAssets(paid); 
 	}-*/;
 	
+	public static native void highlight(String call)/*-{
+	  $wnd.highlight(call); 
+	}-*/;
+	
+	public static native void workflowInExecution()/*-{
+	  $wnd.workflowInExecution(); 
+	}-*/;
+	
+	public static native void workflowFinished()/*-{
+	  $wnd.workflowFinished(); 
+	}-*/;
+	
 	/**
 	 * This is the entry point method.
 	 */
@@ -68,10 +80,12 @@ public class SOAGamble2 implements EntryPoint {
 					System.out.println("UPDATEUI EVENT");
 					UpdateUIEvent event = (UpdateUIEvent)anEvent;
 					int state = ((UpdateUIEvent) anEvent).getState();
-					JsArrayString jsArrayString = arrayToJsArray(event.getGeneratedObject());
+					
+					String[] tab = event.getGeneratedObject();
+					JsArrayString jsArrayString = arrayToJsArray(tab);
+					
 					switch(state){
 					case State.GET_SPORT_EVENTS:
-						System.out.println("SPORT EVENT");
 						printSportEventTable(jsArrayString);
 						break;
 					case State.REQUEST_ODDS:
@@ -84,11 +98,12 @@ public class SOAGamble2 implements EntryPoint {
 						printProfit(jsArrayString);
 						break;
 					case State.MAKE_PAYMENT:
-						String[] tab = event.getGeneratedObject();
 						double paid = Double.parseDouble(tab[0]);
 						computeAssets(paid);
 						break;
 					}
+					
+					highlight(tab[tab.length-1]);
 				}
 			}
 		});
@@ -112,7 +127,8 @@ public class SOAGamble2 implements EntryPoint {
 	
 
 	public static void launchWorkflow(){
-		workflowService.createClient(clientCallback);
+		workflowInExecution();
+		workflowService.createClient(clientCallback);	
 	}
 
 	static AsyncCallback<String> callback = new AsyncCallback<String>(){
@@ -141,6 +157,7 @@ public class SOAGamble2 implements EntryPoint {
 		@Override
 		public void onSuccess(Double result) {
 			displayProfit(result);
+			workflowFinished();
 		}
 
 	};

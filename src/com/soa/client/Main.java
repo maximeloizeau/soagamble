@@ -1,7 +1,5 @@
 package com.soa.client; 
 
-import com.soa.service.composite.*;
-
 import service.registry.ServiceRegistry;
 
 public class Main {
@@ -12,7 +10,7 @@ public class Main {
 		//BankService.main(args);
 		//OddsService.main(args);
 		//SportsEventsService.main(args, this);
-		BetCompositeService.main(args);
+		//BetCompositeService.main(args);
 		//Client.main(args);
 	}
 }

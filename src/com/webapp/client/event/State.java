@@ -6,4 +6,5 @@ public class State {
 	public static final int PLACE_BET = 2;
 	public static final int REQUEST_PROFIT = 3;
 	public static final int MAKE_PAYMENT = 4;
+	public static final int LOCAL_OPERATION = 5;
 }

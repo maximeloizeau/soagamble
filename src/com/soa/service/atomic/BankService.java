@@ -41,12 +41,6 @@ public class BankService extends AtomicService {
 	 * @param amount : the amount of money to pay
 	 * @return true if the payment was made, false if not.
 	 */
-
-	public boolean requestPayment(String ccData, double amount) {
-		System.out.println("[4DV109] BankService proceed to payment : "+ccData+", "+amount+" unit of money to the customer");
-		return true;
-	}
-	
 	@ServiceOperation
 	public double requestPayment(String ccData, double[] amount) {
 		double sum = 0.0;

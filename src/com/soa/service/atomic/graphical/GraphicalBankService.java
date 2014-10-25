@@ -29,8 +29,15 @@ public class GraphicalBankService extends BankService {
 	 */
 	@ServiceOperation
 	public boolean makePayment(String ccData, double amount) {
-		String[] tab = {""+amount};
+		String[] tab = {""+amount, "BankService.makePayment"};
 		impl.updateClientUI(tab, State.MAKE_PAYMENT);
 		return super.makePayment(ccData, amount);
+	}
+	
+	@ServiceOperation
+	public double requestPayment(String ccData, double[] amount) {
+		String[] tab = {"BankService.requestPayment"};
+		impl.updateClientUI(tab, State.LOCAL_OPERATION);
+		return super.requestPayment(ccData, amount);
 	}
 }

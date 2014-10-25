@@ -16,14 +16,21 @@ public class GraphicalSportsEventsService extends SportsEventsService {
 	@ServiceOperation
 	public SportEvent[] getSportEvents(){
 		SportEvent[] list = super.getSportEvents();
-		String[] events = new String[list.length];
+		String[] events = new String[list.length+1];
 		
 		for (int i=0;i<events.length;i++){
 			events[i] = list[i].toString();
 		}
 		
+		events[events.length-1] = "SportsEventsService.getSportEvents";
 		impl.updateClientUI(events, State.GET_SPORT_EVENTS);
 		return list; 
 	}
 	
+	@ServiceOperation
+	public SportEvent requestResult(SportEvent event) throws Exception {
+		String[] tab = {"SportsEventsService.requestResult"};
+		impl.updateClientUI(tab, State.LOCAL_OPERATION);
+		return super.requestResult(event);
+	}
 }
