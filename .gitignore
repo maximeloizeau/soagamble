@@ -13,3 +13,7 @@ hs_err_pid*
 
 .classpath
 gwt-unitCache/
+.settings/*
+war/WEB-INF/classes
+war/WEB-INF/deploy
+war/soagamble2/
