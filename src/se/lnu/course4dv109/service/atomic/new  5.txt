@@ -1,0 +1,135 @@
+[4DV109] Matches: 
+  (1) Real Madrid : Bayer 04 Leverkusen
+  (2) Manchester City : FC Barcelona
+  (3) AC Mailand : Manchester United
+  (4) Galatasaray Istanbul : FC Chelsea
+  (5) Atlético Madrid : FC Arsenal
+  (6) Olympiakos Piräus : FC Bayern München
+  (7) Zenit Sankt Petersburg : Borussia Dortmund
+  (8) FC Schalke 04 : Paris Saint-Germain
+  
+[4DV109] Odds: 
+  (1) Real Madrid : Bayer 04 Leverkusen
+      Home: 2.0 - Draw: 2.0 - Away: 2.0
+
+  (2) Manchester City : FC Barcelona
+      Home: 8.9 - Draw: 8.9 - Away: 8.9
+
+  (3) AC Mailand : Manchester United
+      Home: 8.0 - Draw: 8.0 - Away: 8.0
+
+  (4) Galatasaray Istanbul : FC Chelsea
+      Home: 1.3 - Draw: 1.3 - Away: 1.3
+
+  (5) Atlético Madrid : FC Arsenal
+      Home: 1.9 - Draw: 1.9 - Away: 1.9
+
+  (6) Olympiakos Piräus : FC Bayern München
+      Home: 0.9 - Draw: 0.9 - Away: 0.9
+
+  (7) Zenit Sankt Petersburg : Borussia Dortmund
+      Home: 3.7 - Draw: 3.7 - Away: 3.7
+
+  (8) FC Schalke 04 : Paris Saint-Germain
+      Home: 4.5 - Draw: 4.5 - Away: 4.5
+	  
+[4DV109] BetService.placeBet
+             Beting: HOME_TEAM
+             Amount: 7.78 €
+			 
+[4DV109] BetService.placeBet
+             Beting: DRAW
+             Amount: 5.92 €
+			 
+[4DV109] BetService.placeBet
+             Beting: HOME_TEAM
+             Amount: 0.34 €
+			 
+[4DV109] BetService.placeBet
+             Beting: HOME_TEAM
+             Amount: 8.08 €
+			 
+[4DV109] BetService.placeBet
+             Beting: DRAW
+             Amount: 10.59 €
+			 
+[4DV109] BetService.placeBet
+             Beting: HOME_TEAM
+             Amount: 0.1 €
+			 
+[4DV109] BetService.placeBet
+             Beting: HOME_TEAM
+             Amount: 9.94 €
+			 
+[4DV109] BetService.placeBet
+             Beting: HOME_TEAM
+             Amount: 1.38 €
+			 
+[4DV109] Bets: 
+  (1) Real Madrid : Bayer 04 Leverkusen
+      Choice: Home - Amount: 7.78 (Odds: 2.0)
+
+  (2) Manchester City : FC Barcelona
+      Choice: Draw - Amount: 5.92 (Odds: 8.9)
+
+  (3) AC Mailand : Manchester United
+      Choice: Home - Amount: 0.34 (Odds: 8.0)
+
+  (4) Galatasaray Istanbul : FC Chelsea
+      Choice: Home - Amount: 8.08 (Odds: 1.3)
+
+  (5) Atlético Madrid : FC Arsenal
+      Choice: Draw - Amount: 10.59 (Odds: 1.9)
+
+  (6) Olympiakos Piräus : FC Bayern München
+      Choice: Home - Amount: 0.1 (Odds: 0.9)
+
+  (7) Zenit Sankt Petersburg : Borussia Dortmund
+      Choice: Home - Amount: 9.94 (Odds: 3.7)
+
+  (8) FC Schalke 04 : Paris Saint-Germain
+      Choice: Home - Amount: 1.38 (Odds: 4.5)
+
+[4DV109] BankService proceed to payment : 3333-3333, 140.96 unit of money to the system
+
+[4DV109] OddsService.requestProfits
+             Choice: HOME_TEAM
+             Result: AWAY_TEAM
+             You Won: 0.0 €
+			 
+[4DV109] OddsService.requestProfits
+             Choice: DRAW
+             Result: AWAY_TEAM
+             You Won: 0.0 €
+			 
+[4DV109] OddsService.requestProfits
+             Choice: HOME_TEAM
+             Result: HOME_TEAM
+             You Won: 2.72 €
+			 
+[4DV109] OddsService.requestProfits
+             Choice: HOME_TEAM
+             Result: HOME_TEAM
+             You Won: 10.504000000000001 €
+			 
+[4DV109] OddsService.requestProfits
+             Choice: DRAW
+             Result: AWAY_TEAM
+             You Won: 0.0 €
+			 
+[4DV109] OddsService.requestProfits
+             Choice: HOME_TEAM
+             Result: AWAY_TEAM
+             You Won: 0.0 €
+			 
+[4DV109] OddsService.requestProfits
+             Choice: HOME_TEAM
+             Result: AWAY_TEAM
+             You Won: 0.0 €
+			 
+[4DV109] OddsService.requestProfits
+             Choice: HOME_TEAM
+             Result: DRAW
+             You Won: 0.0 €
+			 
+[4DV109] BankService proceed to payment : 3333-3333, 13,22 unit of money to the customer

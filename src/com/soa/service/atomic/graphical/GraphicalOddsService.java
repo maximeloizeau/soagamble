@@ -40,11 +40,13 @@ public class GraphicalOddsService extends OddsService {
 	@ServiceOperation
 	public double requestProfits(SportEvent event, Bet bet) {
 		double profit = super.requestProfits(event, bet);
-		//String[] data = {""+profit};
+		
+		DecimalFormat f = new DecimalFormat("#0.00"); 
+		
 		String[] tab = new String[3];
 		tab[0] = event.getId().toString();
 		tab[1] = this.getResult(event.getResult());
-		tab[2] = profit + "€";
+		tab[2] = profit == 0 ? "-" : f.format(profit) + " €";
 		
 		impl.updateClientUI(tab, State.REQUEST_PROFIT);
 		return profit;		

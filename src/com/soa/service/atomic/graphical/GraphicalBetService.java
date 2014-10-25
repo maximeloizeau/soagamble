@@ -1,5 +1,7 @@
 package com.soa.service.atomic.graphical;
 
+import java.text.DecimalFormat;
+
 import com.soa.object.Bet;
 import com.soa.object.Choice;
 import com.soa.object.SportEvent;
@@ -22,10 +24,11 @@ public class GraphicalBetService extends BetService {
 	public Bet placeBet(SportEvent event, int userId, Choice choice, double amount){
 		Bet bet = super.placeBet(event, userId, choice, amount);
 		String ch = this.getDecision(choice);
+		DecimalFormat f = new DecimalFormat("#0.00"); 
 
 		String[] tab = new String[3];
 		tab[0] = event.getId().toString();
-		tab[1] = amount + " €";
+		tab[1] = f.format(amount) + " €";
 		tab[2] = "on "+ch;
 		impl.updateClientUI(tab, State.PLACE_BET);
 		
