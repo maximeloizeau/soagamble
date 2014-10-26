@@ -1,6 +1,7 @@
 package com.webapp.server;
 
 
+import service.provider.AbstractService;
 import service.registry.ServiceRegistry;
 
 import com.soa.client.Client;
@@ -23,6 +24,9 @@ import de.novanic.eventservice.service.RemoteEventServiceServlet;
 @SuppressWarnings("serial")
 public class WorkflowServiceImpl extends RemoteEventServiceServlet implements
 WorkflowService, ServerMessageGeneratorService {
+	private AbstractService[] services = new AbstractService[6];
+	
+	private Client client;
 	
 	public String result;
 	public int waitingTime = 1000;
@@ -31,23 +35,36 @@ WorkflowService, ServerMessageGeneratorService {
 	public String initialize() {
 		String[] args = {};
 
-		ServiceRegistry.main(args);
-		BetService.main(args, this);
-		BankService.main(args, this);
-		OddsService.main(args, this);
-		SportsEventsService.main(args, this);
-		String[] path = {getServletContext().getRealPath("gamble-workflow.txt")};
-		BetCompositeService.main(path, this);
-
-
+		if(services[0] == null) {
+			services[0] = ServiceRegistry.main(args); 
+		}
+		if(services[1] == null) {
+			services[1] = BetService.main(args, this);
+		}
+		if(services[2] == null) {
+			services[2] = BankService.main(args, this);
+		}
+		if(services[3] == null) {
+			services[3] = OddsService.main(args, this); 
+		}
+		if(services[4] == null) {
+			services[4] = SportsEventsService.main(args, this);
+		}
+		if(services[5] == null) {
+			String[] path = {getServletContext().getRealPath("gamble-workflow.txt")};
+			services[5] = BetCompositeService.main(path, this); 
+		}
+	
 		return "OK";
 	}
 	
 	public Double createClient(int waitingTime) {
 		this.waitingTime = waitingTime;
 		
-		String[] args = {};
-		Double result = Client.main(args);
+		if(client == null) {
+			client = new Client();
+		}
+		Double result = client.start();
 		
 		return Math.floor(result * 100) / 100;
 	}

@@ -81,7 +81,7 @@ public class OddsService extends AtomicService {
 	}
 	
 	
-	public static void main(String[] args, WorkflowServiceImpl impl) {
+	public static OddsService main(String[] args, WorkflowServiceImpl impl) {
 		GraphicalOddsService oddsService = new GraphicalOddsService("OddsService", "se.lnu.course4dv109.service.odds", impl);
 		
 		Map<String, Object> customProperties = oddsService.getServiceDescription().getCustomProperties();
@@ -89,6 +89,8 @@ public class OddsService extends AtomicService {
 		customProperties.put("DataReliability", true);
 		oddsService.startService();
 		oddsService.register();
+		
+		return oddsService;
 	}
 
 }

@@ -18,9 +18,11 @@ public class BetCompositeService extends CompositeService {
 	private double amount = 0;
 	private String pathToWorkflow;
 	
-	public static void main(String[] args, WorkflowServiceImpl impl) {
+	public static BetCompositeService main(String[] args, WorkflowServiceImpl impl) {
 		BetCompositeService compositeService = new GraphicalBetCompositeService(args[0], impl);
 		compositeService.start();
+		
+		return compositeService;
 	}
 	
 	public BetCompositeService(String path) {
@@ -32,37 +34,6 @@ public class BetCompositeService extends CompositeService {
 		this.addQosRequirement("BestPerformance", new BestPerformanceQoS());
 		this.startService();
 		this.register();
-	}
-	
-	@LocalOperation
-	public void printEvents(SportEvent[] events) {
-		System.out.println("[4DV109] Matches: ");
-		
-		for (int i=0; i < events.length; i++) {
-			System.out.println("  " + events[i]);
-		}
-	}
-	
-	@LocalOperation
-	public void printOdds(SportEvent[] events, Odds[] odds) {
-		System.out.println("[4DV109] Odds: ");
-		
-		for (int i=0; i < events.length; i++) {
-			System.out.println("  " + events[i]);
-			System.out.println("      " + odds[i] + "\n");
-		}
-	}
-	
-	@LocalOperation
-	public void printBets(SportEvent[] events, Bet[] bets, Odds[] odds) {
-		System.out.println("[4DV109] Bets: ");
-		
-		for (int i=0; i < events.length; i++) {
-			Choice c = bets[i].getChoice();
-			
-			System.out.println("  " + events[i]);
-			System.out.println("      " + bets[i] + " (Odds: " + odds[i].getOdds(c) + ")\n");
-		}
 	}
 	
 	@LocalOperation
@@ -81,6 +52,7 @@ public class BetCompositeService extends CompositeService {
 	@LocalOperation
 	public void resetTotalAmount() {
 		this.amount=0;
+		System.out.println("reset t otal");
 	}
 	
 	@LocalOperation

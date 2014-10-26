@@ -56,12 +56,14 @@ public class BankService extends AtomicService {
 	}
 	
 	
-	public static void main(String[] args, WorkflowServiceImpl impl) {
+	public static BankService main(String[] args, WorkflowServiceImpl impl) {
 		GraphicalBankService bankService = new GraphicalBankService("BankService", "se.lnu.course4dv109.service.bank", impl);
 		
 		Map<String, Object> customProperties = bankService.getServiceDescription().getCustomProperties();
 		customProperties.put("Transaction", true);
 		bankService.startService();
 		bankService.register();
+		
+		return bankService;
 	}
 }

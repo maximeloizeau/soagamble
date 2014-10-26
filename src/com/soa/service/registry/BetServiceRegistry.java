@@ -4,8 +4,10 @@ import service.registry.ServiceRegistry;
 
 public class BetServiceRegistry extends ServiceRegistry {
 
-	public static void main(String[] args) {
+	public static BetServiceRegistry main(String[] args) {
 		BetServiceRegistry serviceRegistry = new BetServiceRegistry();
 		serviceRegistry.startService();
+		
+		return serviceRegistry;
 	}
 }

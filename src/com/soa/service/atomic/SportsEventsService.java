@@ -143,7 +143,7 @@ public class SportsEventsService extends AtomicService {
 	}
 	
 	
-	public static void main(String[] args, WorkflowServiceImpl impl) {
+	public static SportsEventsService main(String[] args, WorkflowServiceImpl impl) {
 		SportsEventsService sportsEventsService = new GraphicalSportsEventsService("SportsEventsService", "se.lnu.course4dv109.service.sportsevents", impl);
 		
 		Map<String, Object> customProperties = sportsEventsService.getServiceDescription().getCustomProperties();
@@ -152,5 +152,7 @@ public class SportsEventsService extends AtomicService {
 
 		sportsEventsService.startService();
 		sportsEventsService.register();
+		
+		return sportsEventsService;
 	}
 }

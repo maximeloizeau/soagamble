@@ -47,7 +47,7 @@ public class BetService extends AtomicService {
 		return list;
 	}
 	
-	public static void main(String[] args, WorkflowServiceImpl impl) {
+	public static BetService main(String[] args, WorkflowServiceImpl impl) {
 		GraphicalBetService betService = new GraphicalBetService("BetService", "se.lnu.course4dv109.service.bet", impl);
 		
 		Map<String, Object> customProperties = betService.getServiceDescription().getCustomProperties();
@@ -55,5 +55,7 @@ public class BetService extends AtomicService {
 		
 		betService.startService();
 		betService.register();
+		
+		return betService;
 	}
 }
