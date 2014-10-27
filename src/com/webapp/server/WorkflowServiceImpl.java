@@ -11,6 +11,7 @@ import com.soa.service.atomic.OddsService;
 import com.soa.service.atomic.SportsEventsService;
 import com.soa.service.atomic.graphical.GraphicalSportsEventsService;
 import com.soa.service.composite.BetCompositeService;
+import com.soa.service.registry.BetServiceRegistry;
 import com.webapp.client.ServerMessageGeneratorService;
 import com.webapp.client.WorkflowService;
 import com.webapp.client.event.UpdateUIEvent;
@@ -36,7 +37,7 @@ WorkflowService, ServerMessageGeneratorService {
 		String[] args = {};
 
 		if(services[0] == null) {
-			services[0] = ServiceRegistry.main(args); 
+			services[0] = BetServiceRegistry.start(); 
 		}
 		if(services[1] == null) {
 			services[1] = BetService.main(args, this);
