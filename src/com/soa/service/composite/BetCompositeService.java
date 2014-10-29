@@ -2,11 +2,10 @@ package com.soa.service.composite;
 
 import java.util.Random;
 
-import com.soa.object.Bet;
 import com.soa.object.Choice;
-import com.soa.object.Odds;
 import com.soa.object.SportEvent;
 import com.soa.qos.BestPerformanceQoS;
+import com.soa.qos.UseProviderFavoriteQoS;
 import com.soa.service.atomic.graphical.GraphicalBetCompositeService;
 import com.webapp.server.WorkflowServiceImpl;
 
@@ -33,6 +32,7 @@ public class BetCompositeService extends CompositeService {
 	
 	public void start() {
 		this.addQosRequirement("BestPerformance", new BestPerformanceQoS());
+		this.addQosRequirement("UseProviderFavorite", new UseProviderFavoriteQoS());
 		this.startService();
 		this.register();
 	}

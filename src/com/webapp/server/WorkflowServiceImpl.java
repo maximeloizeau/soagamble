@@ -8,6 +8,8 @@ import com.soa.client.Client;
 import com.soa.service.atomic.BankService;
 import com.soa.service.atomic.BetService;
 import com.soa.service.atomic.OddsService;
+import com.soa.service.atomic.OddsWithFavoriteService;
+import com.soa.service.atomic.OddsWithoutFavoriteService;
 import com.soa.service.atomic.SportsEventsService;
 import com.soa.service.atomic.graphical.GraphicalSportsEventsService;
 import com.soa.service.composite.BetCompositeService;
@@ -25,7 +27,7 @@ import de.novanic.eventservice.service.RemoteEventServiceServlet;
 @SuppressWarnings("serial")
 public class WorkflowServiceImpl extends RemoteEventServiceServlet implements
 WorkflowService, ServerMessageGeneratorService {
-	private AbstractService[] services = new AbstractService[6];
+	private AbstractService[] services = new AbstractService[7];
 	
 	private Client client;
 	
@@ -46,7 +48,7 @@ WorkflowService, ServerMessageGeneratorService {
 			services[2] = BankService.main(args, this);
 		}
 		if(services[3] == null) {
-			services[3] = OddsService.main(args, this); 
+			services[3] = OddsWithFavoriteService.main(args, this); 
 		}
 		if(services[4] == null) {
 			services[4] = SportsEventsService.main(args, this);
@@ -55,17 +57,20 @@ WorkflowService, ServerMessageGeneratorService {
 			String[] path = {getServletContext().getRealPath("gamble-workflow.txt")};
 			services[5] = BetCompositeService.main(path, this); 
 		}
+		if(services[6] == null){
+			services[6] = OddsWithoutFavoriteService.main(args, this);
+		}
 	
 		return "OK";
 	}
 	
-	public Double createClient(int waitingTime, double availableMoney) {
+	public Double createClient(int waitingTime, boolean favorite, double availableMoney) {
 		this.waitingTime = waitingTime;
 		
 		if(client == null) {
 			client = new Client();
 		}
-		Double result = client.start(availableMoney);
+		Double result = client.start(favorite, availableMoney);
 		
 		return Math.floor(result * 100) / 100;
 	}
@@ -74,7 +79,7 @@ WorkflowService, ServerMessageGeneratorService {
 		Event theEvent = new UpdateUIEvent(object, state);
         //add the event, so clients can receive it
         addEvent(UpdateUIEvent.SERVER_MESSAGE_DOMAIN, theEvent);
-        
+       
         try {
 			Thread.sleep(this.waitingTime);
 		} catch (InterruptedException e) {
