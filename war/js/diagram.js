@@ -66,4 +66,12 @@ window.onload = function() {
         document.getElementById('homepage').style.display = "none";
         app.start();
     });
+    
+    var xmlhttp, text;
+    xmlhttp = new XMLHttpRequest();
+    xmlhttp.open('GET', '/gamble-workflow.txt', false);
+    xmlhttp.send();
+    document.getElementById('workflowToParse').innerHTML = xmlhttp.responseText;
+    
+    parser.clickToStart();
 };
