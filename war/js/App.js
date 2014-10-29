@@ -2,11 +2,13 @@
 
 function App() {
 	this.locked = false;
+	this.completed = true;
     this.assets = 1000.0;
     this.winnings = 0;
     this.DEFAULT_TIME = 0;
     this.currentIdx = 0;
     this.paid = 0;
+    this.runs = 0;
     this.graphValues = [ [ 'No.', 'Bet', 'Profit'] ]
 }
 
@@ -124,26 +126,42 @@ App.prototype.initiateSequence = function(){
 	if (!this.locked) {
 		this.locked = true;
 		
-	    document.getElementById("profits").innerHTML="";
-	    var table = document.getElementById("eventTable");
-	    for(var i = table.rows.length - 1; i > 1; i--)
-	    {
-	        table.deleteRow(i);
-	    }
-	
-	    document.getElementById("winnings").innerText = "";
-	    document.getElementById("paid_money").innerText = "";
-	    document.getElementById("profits").innerText = "";
-	
-	    var waitTime = this.DEFAULT_TIME;
-	    var waitTimeInput = document.getElementById("waitingTime");
-	    if(waitTimeInput) {
-	    	waitTime = Number.parseInt(waitTimeInput.value);
-	    }
-	    
-	    launchWorkflow(waitTime);
+		this.runs = document.getElementById("runs").value;
+		this.nextRun(true);
 	}
 };
+
+App.prototype.nextRun = function(first) {
+	document.getElementById("profits").innerHTML="";
+    var table = document.getElementById("eventTable");
+    for(var i = table.rows.length - 1; i > 1; i--)
+    {
+        table.deleteRow(i);
+    }
+
+    document.getElementById("winnings").innerText = "";
+    document.getElementById("paid_money").innerText = "";
+    document.getElementById("profits").innerText = "";
+    
+    if (this.runs > 2) {
+    	document.getElementById("remaining").innerText = (this.runs - 1) + " runs remaining";
+    	
+    } else if (this.runs > 1) {
+        document.getElementById("remaining").innerText = "1 run remaining";
+        	
+    } else if (!first) {
+    	document.getElementById("remaining").innerText = "last run";	
+    }
+
+    var waitTime = this.DEFAULT_TIME;
+    var waitTimeInput = document.getElementById("waitingTime");
+    
+    if(waitTimeInput) {
+    	waitTime = Number.parseInt(waitTimeInput.value);
+    }
+    
+    launchWorkflow(waitTime);
+}
 	
 App.prototype.computeAssets = function(paid){
     this.assets = this.assets-paid;
@@ -173,5 +191,16 @@ App.prototype.drawGrapth = function() {
 
     chart.draw(data, options);
     
-    this.locked = false;
+    this.runs--;
+    var that = this;
+    
+    if (this.runs > 0) {
+    	setTimeout(function() {
+    		that.nextRun(false);
+    	}, 2000);
+    	
+    } else {
+        document.getElementById("remaining").innerText = "";
+    	this.locked = false;
+    }
 }
