@@ -13,7 +13,6 @@ window.onload = function() {
         		document.getElementById('editor').style.display = "block";
                 document.getElementById('parser').style.display = "none";
                 document.getElementById('app').style.display = "none";
-                document.getElementById('homepage').style.display = "none";
                 
         		parser.stop();
         		editor.start();
@@ -22,8 +21,7 @@ window.onload = function() {
         	document.getElementById('editor').style.display = "block";
             document.getElementById('parser').style.display = "none";
             document.getElementById('app').style.display = "none";
-            document.getElementById('homepage').style.display = "none";
-        	
+            
         	editor.start();
         }
     });
@@ -33,7 +31,6 @@ window.onload = function() {
     		document.getElementById('editor').style.display = "block";
             document.getElementById('parser').style.display = "none";
             document.getElementById('app').style.display = "none";
-            document.getElementById('homepage').style.display = "none";
             
     	} else {
     		if(editor.edited) {
@@ -43,7 +40,6 @@ window.onload = function() {
             		document.getElementById('editor').style.display = "none";
                     document.getElementById('parser').style.display = "block";
                     document.getElementById('app').style.display = "none";
-                    document.getElementById('homepage').style.display = "none";
             		
             		editor.stop();
             		parser.start();
@@ -52,7 +48,6 @@ window.onload = function() {
             	document.getElementById('editor').style.display = "none";
                 document.getElementById('parser').style.display = "block";
                 document.getElementById('app').style.display = "none";
-                document.getElementById('homepage').style.display = "none";
             	
             	parser.start();
             }
@@ -63,7 +58,6 @@ window.onload = function() {
     	document.getElementById('editor').style.display = "none";
         document.getElementById('parser').style.display = "none";
         document.getElementById('app').style.display = "block";
-        document.getElementById('homepage').style.display = "none";
         app.start();
     });
     

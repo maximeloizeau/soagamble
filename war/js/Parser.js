@@ -11,7 +11,7 @@ function Parser() {
 
     this.workflow = {
         services: [],
-        higherY: 110,
+        higherY: 80,
         parsed: false
     };
     this.stack = [];
@@ -21,7 +21,6 @@ function Parser() {
 
 Parser.prototype.start = function() {
     document.getElementById('parser').style.display = "block";
-    document.getElementById('homepage').style.display = "none";
 
     document.getElementById('startParsing').removeEventListener('click', this.clickToStart);
     document.getElementById('startParsing').addEventListener('click', this.clickToStart);
@@ -33,7 +32,7 @@ Parser.prototype.start = function() {
 Parser.prototype.stop = function() {
 	this.workflow = {
         services: [],
-        higherY: 110,
+        higherY: 80,
         parsed: false
     };
 };
@@ -70,7 +69,11 @@ Parser.prototype.startParser = function(workflow) {
 
     var instructions = workflow.replace(/ |\t/g, "").split('\n');
     instructions.forEach(function(instr) {
-        console.log(instr, parser.workflow.higherY);
+    	
+    	var commentIndex = instr.indexOf("//");
+    	if(commentIndex >= 0) {
+    		instr = instr.substring(0, commentIndex);
+    	}
 
         if(startsWith(instr, parser.TOKENS.START)) {
             parser.workflow.inputParameters = instr.replace(parser.TOKENS.START, "").split(',');
@@ -121,6 +124,8 @@ Parser.prototype.startParser = function(workflow) {
                 parser.workflow.services.push(serviceName);
                 editor.addEntity(serviceName);
             }
+            
+            parser.workflow.higherY = parser.workflow.higherY + 40;
 
             parser.workflow.composite.onElementClick(
                 parser.workflow.composite,
@@ -144,13 +149,12 @@ Parser.prototype.startParser = function(workflow) {
                     break;
                 }
             }
-
+            
             parser.workflow.higherY = parser.workflow.higherY + 80;
         } else if(instr.length > 0 && instr.indexOf("}") < 0 && instr.indexOf("{") < 0) {
             editor.addCompositeCode(instr, parser.workflow.higherY);
             parser.workflow.higherY = parser.workflow.higherY + 50;
         }
-
 
         // Detect end of blocks
         for(var i = 0; i < instr.length; i++) {

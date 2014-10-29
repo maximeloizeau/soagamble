@@ -5,7 +5,7 @@ function Entity(s, name, nextTo) {
     
     this.SERVICE_WIDTH = 125;
     this.SERVICE_HEIGHT = 40;
-    this.SERVICE_LIFELINE = 800;
+    this.SERVICE_LIFELINE = 1200;
     this.SERVICE_ATTR = {
         fill: editor.COLORS.ENT
     };
@@ -123,23 +123,33 @@ Entity.prototype.push = function(el) {
     } else {
         this.callsFromEntity.splice(locationOf(el, this.callsFromEntity) + 1, 0, el);
     }
+    
+    console.log(el.y, this.lifeLine.getBBox().y2);
+    if(el.y > this.lifeLine.getBBox().y2) {
+    	console.log("Extending", el)
+        this.extendLifeLine(el.y - this.lifeLine.getBBox().y2 + 200);
+    }
 };
 
 Entity.prototype.extendLifeLine = function(length) {
-    this.lifeLine = this.snap.line(
-        this.lifeLine.getBBox().x2,
-        this.lifeLine.getBBox().y2,
-        this.lifeLine.getBBox().x2,
-        this.lifeLine.getBBox().y2 + length
-    );
-    this.lifeLine.attr(this.LIFE_ATTR);
+	for(var i = 0; i < editor.services.length; i++) {
+		var service = editor.services[i];
+		
+		service.lifeLine = this.snap.line(
+			service.lifeLine.getBBox().x2,
+			service.lifeLine.getBBox().y2,
+			service.lifeLine.getBBox().x2,
+			service.lifeLine.getBBox().y2 + length
+	    );
+		service.lifeLine.attr(this.LIFE_ATTR);
 
-    if(!editor.readonly) {
-        this.lifeLine.addClass("clickable");
-        this.lifeLine.click(this.onElementClick.bind(this, this));
-    }
+	    if(!editor.readonly) {
+	    	service.lifeLine.addClass("clickable");
+	    	service.lifeLine.click(this.onElementClick.bind(this, this));
+	    }
 
-    editor.lowerLayer.add(this.lifeLine);
+	    editor.lowerLayer.add(service.lifeLine);
+	}
 };
 
 Entity.prototype.expandDrawing = function(me) {

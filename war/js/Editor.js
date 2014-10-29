@@ -90,7 +90,7 @@ Editor.prototype.start = function(readonly) {
 };
 
 Editor.prototype.shorcutListener = function(key) {
-    if(key.which == 178) { // key "Â²"
+    if(key.which == 178) { // key "²"
         if(editor.objectType == editor.OBJECT_TYPE.SERVICE_CALL) {
             document.querySelector('input[value="' + editor.OBJECT_TYPE.COMPOSITE_CODE + '"]').checked = "checked";
             editor.objectType = editor.OBJECT_TYPE.COMPOSITE_CODE;

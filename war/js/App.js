@@ -14,7 +14,6 @@ function App() {
 
 App.prototype.start = function() {
     document.getElementById('app').style.display = "block";
-    document.getElementById('homepage').style.display = "none";
 };
 
 App.prototype.printSportEventTable = function(events) {
