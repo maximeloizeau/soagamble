@@ -3,8 +3,8 @@
 function Entity(s, name, nextTo) {
     Element.call(this, s);
     
-    this.SERVICE_WIDTH = 150;
-    this.SERVICE_HEIGHT = 50;
+    this.SERVICE_WIDTH = 125;
+    this.SERVICE_HEIGHT = 40;
     this.SERVICE_LIFELINE = 800;
     this.SERVICE_ATTR = {
         fill: editor.COLORS.ENT
@@ -17,11 +17,12 @@ function Entity(s, name, nextTo) {
     this.snap = s;
     this.name = name;
     
+    this.textW = editor.measureText(this.name, "20px Arial") + 15;    
     if(!nextTo) {
-        this.x = 0;
+        this.x = 30;
         this.y = 0;
     } else {
-        this.x = nextTo.x + this.SERVICE_WIDTH + 100;
+        this.x = nextTo.x + nextTo.textW + 50;
         this.y = nextTo.y;
     }
 
@@ -33,22 +34,24 @@ function Entity(s, name, nextTo) {
 Entity.prototype = Object.create(Element.prototype);
 Entity.prototype.constructor = Entity;
 
-Entity.prototype.draw = function() {
-    var lineX = this.x + (this.SERVICE_WIDTH/2);
+Entity.prototype.draw = function() {	
+    var lineX = this.x + (this.textW/2);
     var lineY = this.y + this.SERVICE_HEIGHT;
     this.lifeLine = this.snap.line(
         lineX, lineY,
         lineX, lineY + this.SERVICE_LIFELINE
     );
     this.lifeLine.attr(this.LIFE_ATTR);
-    this.lifeLine.addClass("clickable");
     
-    this.lifeLine.click(this.onElementClick.bind(this, this));
+    if(!editor.readonly) {
+        this.lifeLine.addClass("clickable");
+        this.lifeLine.click(this.onElementClick.bind(this, this));
+    }
     
 
     this.rect = this.snap.rect(
         this.x, this.y,
-        this.SERVICE_WIDTH, this.SERVICE_HEIGHT
+        this.textW, this.SERVICE_HEIGHT
     );
     this.rect.attr(this.SERVICE_ATTR);
     
@@ -130,8 +133,11 @@ Entity.prototype.extendLifeLine = function(length) {
         this.lifeLine.getBBox().y2 + length
     );
     this.lifeLine.attr(this.LIFE_ATTR);
-    this.lifeLine.addClass("clickable");
-    this.lifeLine.click(this.onElementClick.bind(this, this));
+
+    if(!editor.readonly) {
+        this.lifeLine.addClass("clickable");
+        this.lifeLine.click(this.onElementClick.bind(this, this));
+    }
 
     editor.lowerLayer.add(this.lifeLine);
 };
@@ -148,10 +154,10 @@ Entity.prototype.expandDrawing = function(me) {
     this.snap.node.style.height = this.snap.node.style.clientHeight + 100 + "px";
 };
 
-Entity.prototype.toColor = function() {
+Entity.prototype.toColor = function(stayInColor) {
     this.rect.attr(this.SERVICE_ATTR);
 
     this.composition.forEach(function(el) {
-        el.toColor();
+        el.toColor(stayInColor);
     });
 };

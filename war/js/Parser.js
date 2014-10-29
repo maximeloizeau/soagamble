@@ -11,30 +11,47 @@ function Parser() {
 
     this.workflow = {
         services: [],
-        higherY: 80,
+        higherY: 110,
         parsed: false
     };
     this.stack = [];
+    
+    this.waitTime = 100;
 }
 
 Parser.prototype.start = function() {
     document.getElementById('parser').style.display = "block";
     document.getElementById('homepage').style.display = "none";
 
-    console.log("start");
-
-    document.getElementById('startParsing').addEventListener('click', function() {
-    	console.log("startParsing");
-    	parser.startParser(document.getElementById('workflowToParse').value);
-    });
+    document.getElementById('startParsing').removeEventListener('click', this.clickToStart);
+    document.getElementById('startParsing').addEventListener('click', this.clickToStart);
+    
+    document.getElementById("waitingTime").value = this.waitTime;
+    document.getElementById("waitingTime").addEventListener('change', this.changeWaitTime.bind(this));
 };
 
+Parser.prototype.stop = function() {
+	this.workflow = {
+        services: [],
+        higherY: 110,
+        parsed: false
+    };
+};
+
+// Parser Button action
+Parser.prototype.clickToStart = function() {
+	parser.startParser(document.getElementById('workflowToParse').value);
+};
+
+Parser.prototype.changeWaitTime = function(event) {
+	this.waitTime = parseInt(event.target.value);
+}
+
 Parser.prototype.startParser = function(workflow) {
-    document.getElementById('parser').style.display = "none";
+	document.getElementById('parser').style.display = "none";
     document.getElementById('editor').style.display = "block";
 
-    editor = new Editor();
-    editor.start();
+    editor.start(true);
 
     parser.workflow.composite = editor.services[0];
 
@@ -53,15 +70,15 @@ Parser.prototype.startParser = function(workflow) {
 
     var instructions = workflow.replace(/ |\t/g, "").split('\n');
     instructions.forEach(function(instr) {
-        //console.log(instr);
+        console.log(instr, parser.workflow.higherY);
 
         if(startsWith(instr, parser.TOKENS.START)) {
             parser.workflow.inputParameters = instr.replace(parser.TOKENS.START, "").split(',');
             document.getElementById("inputs").value = parser.workflow.inputParameters;
+            parser.workflow.parsed = true;
         } else if(startsWith(instr, parser.TOKENS.RETURN)) {
             parser.workflow.outputParameter = instr.replace(parser.TOKENS.RETURN, "");
             document.getElementById("output").value = parser.workflow.outputParameter;
-            parser.workflow.parsed = true;
         } else if(startsWith(instr, parser.TOKENS.FOR)) {
             var forCondition = instr.substring(4, instr.indexOf(")"));
 
@@ -124,10 +141,11 @@ Parser.prototype.startParser = function(workflow) {
                         serviceMethod,
                         affect
                     );
+                    break;
                 }
             }
 
-            parser.workflow.higherY = parser.workflow.higherY + 100;
+            parser.workflow.higherY = parser.workflow.higherY + 80;
         } else if(instr.length > 0 && instr.indexOf("}") < 0 && instr.indexOf("{") < 0) {
             editor.addCompositeCode(instr, parser.workflow.higherY);
             parser.workflow.higherY = parser.workflow.higherY + 50;
@@ -141,8 +159,8 @@ Parser.prototype.startParser = function(workflow) {
 
                 switch(block) {
                     case parser.TOKENS.FOR:
-                        editor.addEndFor(parser.workflow.higherY);
-                        parser.workflow.higherY = parser.workflow.higherY + 50;
+                        editor.addEndFor(parser.workflow.higherY - 60);
+                        parser.workflow.higherY = parser.workflow.higherY + 20;
                         break;
                     case parser.TOKENS.IF:
                         editor.addEndIf(parser.workflow.higherY);
@@ -223,9 +241,9 @@ Parser.prototype.workflowFinished = function() {
 	if(!this.workflow.parsed) return;
 	
     editor.services[0].callsFromEntity.forEach(function(service) {
-        service.toColor();
+        service.toColor(true);
     });
     editor.services.forEach(function(service) {
-        service.toColor();
+        service.toColor(true);
     });
 };

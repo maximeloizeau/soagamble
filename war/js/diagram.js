@@ -6,12 +6,24 @@ var editor = new Editor(),
 
 window.onload = function() {
     document.getElementById('startEditor').addEventListener('click', function() {
-        document.getElementById('editor').style.display = "block";
-        document.getElementById('parser').style.display = "none";
-        document.getElementById('app').style.display = "none";
-        document.getElementById('homepage').style.display = "none";
-        
-        if(!parser.workflow.parsed) {
+    	if(parser.workflow.parsed) {
+        	var launchEditor = confirm("This will delete the generated diagram. Continue ?");
+        	
+        	if(launchEditor) {
+        		document.getElementById('editor').style.display = "block";
+                document.getElementById('parser').style.display = "none";
+                document.getElementById('app').style.display = "none";
+                document.getElementById('homepage').style.display = "none";
+                
+        		parser.stop();
+        		editor.start();
+        	}
+        } else {
+        	document.getElementById('editor').style.display = "block";
+            document.getElementById('parser').style.display = "none";
+            document.getElementById('app').style.display = "none";
+            document.getElementById('homepage').style.display = "none";
+        	
         	editor.start();
         }
     });
@@ -24,12 +36,26 @@ window.onload = function() {
             document.getElementById('homepage').style.display = "none";
             
     	} else {
-    		document.getElementById('editor').style.display = "none";
-            document.getElementById('parser').style.display = "block";
-            document.getElementById('app').style.display = "none";
-            document.getElementById('homepage').style.display = "none";
-
-        	parser.start();
+    		if(editor.edited) {
+            	var launch = confirm("This will delete the created diagram. Continue ?");
+            	
+            	if(launch) {
+            		document.getElementById('editor').style.display = "none";
+                    document.getElementById('parser').style.display = "block";
+                    document.getElementById('app').style.display = "none";
+                    document.getElementById('homepage').style.display = "none";
+            		
+            		editor.stop();
+            		parser.start();
+            	}
+            } else {
+            	document.getElementById('editor').style.display = "none";
+                document.getElementById('parser').style.display = "block";
+                document.getElementById('app').style.display = "none";
+                document.getElementById('homepage').style.display = "none";
+            	
+            	parser.start();
+            }
     	}
     });
     

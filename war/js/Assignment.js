@@ -1,8 +1,8 @@
 function Assignment(s, name, x, y) {
     Element.call(this, s);
     
-    this.WIDTH = 100;
-    this.HEIGHT = 40;
+    this.WIDTH = 90;
+    this.HEIGHT = 35;
     this.ATTR = {
         fill: editor.COLORS.INSTR
     };
@@ -23,20 +23,19 @@ Assignment.prototype.draw = function() {
        this.HEIGHT
    );
    
-    this.rect.click(this.onElementClick.bind(this, this));
+    if(!editor.readonly)
+      this.rect.click(this.onElementClick.bind(this, this));
    
     this.rect.attr(this.ATTR);
     
-    // TODO : fix the centering
-    var size = this.name.length * 5;
     this.text = this.snap.text(
-        this.rect.getBBox().cx - size,
-        this.rect.getBBox().cy + size / 7,
+        this.rect.getBBox().x + 5,
+        this.rect.getBBox().y2 - 12,
         this.name
     );
     this.text.attr({
       fontFamily: 'Arial',
-      fontSize: 16,
+      fontSize: 12,
       fill: editor.COLORS.TEXT,
       textAnchor: 'left'
     });

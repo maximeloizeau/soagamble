@@ -20,7 +20,7 @@ Element.prototype.onElementClick = function(entity, me, methodName, varName) {
 
     var mouseevent = {
         clientX: me.clientX,
-        clientY: me.clientY + window.scrollY
+        clientY: me.clientY + window.scrollY - document.getElementById('svg').getBoundingClientRect().top
     };
 
     this.expandDrawing(mouseevent);
@@ -133,6 +133,8 @@ Element.prototype.removeClickPoint = function() {
 Element.prototype.link = function(methodName, variableName) {
     var serviceName;
 
+    if(editor.clickState.dest == editor.clickState.target) return;
+    
     // Don't ask the user if in parsing mode
     if(methodName) {
         serviceName = methodName;

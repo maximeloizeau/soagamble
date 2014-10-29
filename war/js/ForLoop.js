@@ -40,7 +40,7 @@ ForLoop.prototype.draw = function() {
  */
 ForLoop.prototype.setFrame = function(endX, endY) {
     var frame = this.snap.rect(
-        this.obj.getBBox().x - 50,
+        this.obj.getBBox().x - 40,
         this.obj.getBBox().y,
         endX - this.obj.getBBox().x,
         endY - this.obj.getBBox().y
@@ -48,12 +48,12 @@ ForLoop.prototype.setFrame = function(endX, endY) {
     frame.attr({
         fillOpacity: 0,
         stroke: "#333",
-        strokeWidth: 0.5
+        strokeWidth: 1
     });
 
     var titleFrame = this.snap.rect(
-        this.obj.getBBox().x - 50,
-        this.obj.getBBox().y,
+        this.obj.getBBox().x - 40 + 1,
+        this.obj.getBBox().y + 1,
         45,
         20
     );

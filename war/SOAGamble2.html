@@ -77,10 +77,10 @@
 
         <div id="editor">
             <nav id="toolbar">
-            	<label for="waitingTime">Time to wait between calls (in ms)</label>
-            	<input type="number" id="waitingTime" value="0"/>
+            	<label for="waitingTime" class="parsermode">Time to wait between calls (in ms)</label>
+            	<input type="number" id="waitingTime" class="parsermode" value="0"/>
             	
-                <input type="text" id="entityName" /><button id="addEntity">Add entity</button>
+                <input type="text" id="entityName" class="editormode" /><button id="addEntity" classs="editormode">Add entity</button>
 
                 <label class="labelinput" for="inputs">Input parameters (separated by commas) :</label>
                 <input type="text" id="inputs" />
@@ -88,21 +88,21 @@
                 <label class="labelinput" for="output">Output parameter :</label>
                 <input type="text" id="output" />
 
-                <label class="toggle-btn"><input type="radio" name="objectType" value="serviceCall" checked="checked"/>Service call</label>
-                <label class="toggle-btn"><input type="radio" name="objectType" value="compositeCode"/>Composite code</label>
-                <label class="toggle-btn"><input type="radio" name="objectType" value="if"/>If</label>
-                <label class="toggle-btn"><input type="radio" name="objectType" value="else"/>Else</label>
-                <label class="toggle-btn"><input type="radio" name="objectType" value="endIf"/>EndIf</label>
-                <label class="toggle-btn"><input type="radio" name="objectType" value="forLoop"/>ForLoop</label>
-                <label class="toggle-btn"><input type="radio" name="objectType" value="endFor"/>EndFor</label>
+                <label class="toggle-btn editormode"><input type="radio" name="objectType" value="serviceCall" checked="checked"/>Service call</label>
+                <label class="toggle-btn editormode"><input type="radio" name="objectType" value="compositeCode"/>Composite code</label>
+                <label class="toggle-btn editormode"><input type="radio" name="objectType" value="if"/>If</label>
+                <label class="toggle-btn editormode"><input type="radio" name="objectType" value="else"/>Else</label>
+                <label class="toggle-btn editormode"><input type="radio" name="objectType" value="endIf"/>EndIf</label>
+                <label class="toggle-btn editormode"><input type="radio" name="objectType" value="forLoop"/>ForLoop</label>
+                <label class="toggle-btn editormode"><input type="radio" name="objectType" value="endFor"/>EndFor</label>
 
-                <button id="generate" class="mainbutton">Generate</button>
-                <button id="execute" class="mainbutton">Execute Workflow</button>
+                <button id="generate" class="mainbutton editormode">Generate</button>
+                <button id="execute" class="mainbutton parsermode">Execute Workflow</button>
 
-                <textarea id="generated-workflow" rows=20></textarea>
+                <textarea id="generated-workflow" class="editormode" rows=20></textarea>
             </nav>
             <div id="svgpanel">
-                <svg id="svg" height="2000px" width="1000px" viewBox="0 600 1200 1200"></svg>
+                <svg id="svg" height="2000px" width="2000px"></svg>
             </div>
         </div>
 

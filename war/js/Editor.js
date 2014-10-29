@@ -19,15 +19,41 @@ function Editor() {
     	ENT: "#0066FF",
     	CODE: "#E88000",
     	INSTR: "#ffa500",
-    	BLOCK: "#B21618",
+    	BLOCK: "#58E875",
     	ENT_BG: "#5BB9FF",
     	TEXT: "#FFFFFF"
     };
+    
+    this.readonly = false;
+    this.edited = false;
 }
 
-Editor.prototype.start = function() {
-    this.snap = Snap("#svg");
+Editor.prototype.start = function(readonly) {
+	this.snap = Snap("#svg");
+	this.snap.clear();
     this.services = [];
+	
+    var editorNodes = document.querySelectorAll(".editormode"),
+    	parserNodes = document.querySelectorAll(".parsermode");
+
+    // Parser mode
+	if(readonly) {
+		this.readonly = readonly;
+		
+		for(var i = 0; i < editorNodes.length; i++) {
+			editorNodes[i].style.display = "none";
+		}
+		for(i = 0; i < parserNodes.length; i++) {
+			parserNodes[i].style.display = "block";
+		}
+	} else {
+		for(var i = 0; i < editorNodes.length; i++) {
+			editorNodes[i].style.display = "block";
+		}
+		for(i = 0; i < parserNodes.length; i++) {
+			parserNodes[i].style.display = "none";
+		}
+	}
 
     this.clickState = {
         state: this.CLICK_STATE.NO_CLICK
@@ -42,9 +68,6 @@ Editor.prototype.start = function() {
 
     this.services.push(composite);
 
-    //this.addEntity("OddsService");
-
-
     // ###
     // Place listeners in user interface
     // ###
@@ -54,48 +77,65 @@ Editor.prototype.start = function() {
         document.getElementById("generated-workflow").value = workflowText;
     });
 
-    document.addEventListener("keypress", function(key) {
-        if(key.which == 178) { // key "²"
-            if(editor.objectType == editor.OBJECT_TYPE.SERVICE_CALL) {
-                document.querySelector('input[value="' + editor.OBJECT_TYPE.COMPOSITE_CODE + '"]').checked = "checked";
-                editor.objectType = editor.OBJECT_TYPE.COMPOSITE_CODE;
-            } else if(editor.objectType == editor.OBJECT_TYPE.COMPOSITE_CODE) {
-                document.querySelector('input[value="' + editor.OBJECT_TYPE.IF + '"]').checked = "checked";
-                editor.objectType = editor.OBJECT_TYPE.IF;
-            } else if(editor.objectType == editor.OBJECT_TYPE.IF) {
-                document.querySelector('input[value="' + editor.OBJECT_TYPE.ELSE + '"]').checked = "checked";
-                editor.objectType = editor.OBJECT_TYPE.ELSE;
-            }  else if(editor.objectType == editor.OBJECT_TYPE.ELSE) {
-                document.querySelector('input[value="' + editor.OBJECT_TYPE.ENDIF + '"]').checked = "checked";
-                editor.objectType = editor.OBJECT_TYPE.ENDIF;
-            } else if(editor.objectType == editor.OBJECT_TYPE.ENDIF) {
-                document.querySelector('input[value="' + editor.OBJECT_TYPE.FORLOOP + '"]').checked = "checked";
-                editor.objectType = editor.OBJECT_TYPE.FORLOOP;
-            } else if(editor.objectType == editor.OBJECT_TYPE.FORLOOP) {
-                document.querySelector('input[value="' + editor.OBJECT_TYPE.ENDFOR + '"]').checked = "checked";
-                editor.objectType = editor.OBJECT_TYPE.ENDFOR;
-            } else if(editor.objectType == editor.OBJECT_TYPE.ENDFOR) {
-                document.querySelector('input[value="' + editor.OBJECT_TYPE.SERVICE_CALL + '"]').checked = "checked";
-                editor.objectType = editor.OBJECT_TYPE.SERVICE_CALL;
-            }
-        }
-    });
+    document.removeEventListener("keypress", editor.shorcutListener);
+    document.addEventListener("keypress", editor.shorcutListener);
 
-
-    document.getElementById("addEntity").addEventListener("click", function() {
-        editor.addEntity(document.getElementById("entityName").value);
-        document.getElementById("entityName").value = "";
-    });
-    document.getElementById("entityName").addEventListener("keydown", function(event) {
-        if(event.keyCode == 13) {
-            editor.addEntity(document.getElementById("entityName").value);
-            document.getElementById("entityName").value = "";
-        }
-    });
+    document.getElementById("addEntity").removeEventListener("click", this.addEntityListener);
+    document.getElementById("entityName").removeEventListener("keydown", this.addEntityListener);
+    document.getElementById("addEntity").addEventListener("click", this.addEntityListener);
+    document.getElementById("entityName").addEventListener("keydown", this.addEntityListener);
     
-    document.getElementById("execute").addEventListener("click", function() {
-        app.initiateSequence();
-    });
+    document.getElementById("execute").removeEventListener("click", app.initiateSequence.bind(app));
+    document.getElementById("execute").addEventListener("click", app.initiateSequence.bind(app));
+};
+
+Editor.prototype.shorcutListener = function(key) {
+    if(key.which == 178) { // key "²"
+        if(editor.objectType == editor.OBJECT_TYPE.SERVICE_CALL) {
+            document.querySelector('input[value="' + editor.OBJECT_TYPE.COMPOSITE_CODE + '"]').checked = "checked";
+            editor.objectType = editor.OBJECT_TYPE.COMPOSITE_CODE;
+        } else if(editor.objectType == editor.OBJECT_TYPE.COMPOSITE_CODE) {
+            document.querySelector('input[value="' + editor.OBJECT_TYPE.IF + '"]').checked = "checked";
+            editor.objectType = editor.OBJECT_TYPE.IF;
+        } else if(editor.objectType == editor.OBJECT_TYPE.IF) {
+            document.querySelector('input[value="' + editor.OBJECT_TYPE.ELSE + '"]').checked = "checked";
+            editor.objectType = editor.OBJECT_TYPE.ELSE;
+        }  else if(editor.objectType == editor.OBJECT_TYPE.ELSE) {
+            document.querySelector('input[value="' + editor.OBJECT_TYPE.ENDIF + '"]').checked = "checked";
+            editor.objectType = editor.OBJECT_TYPE.ENDIF;
+        } else if(editor.objectType == editor.OBJECT_TYPE.ENDIF) {
+            document.querySelector('input[value="' + editor.OBJECT_TYPE.FORLOOP + '"]').checked = "checked";
+            editor.objectType = editor.OBJECT_TYPE.FORLOOP;
+        } else if(editor.objectType == editor.OBJECT_TYPE.FORLOOP) {
+            document.querySelector('input[value="' + editor.OBJECT_TYPE.ENDFOR + '"]').checked = "checked";
+            editor.objectType = editor.OBJECT_TYPE.ENDFOR;
+        } else if(editor.objectType == editor.OBJECT_TYPE.ENDFOR) {
+            document.querySelector('input[value="' + editor.OBJECT_TYPE.SERVICE_CALL + '"]').checked = "checked";
+            editor.objectType = editor.OBJECT_TYPE.SERVICE_CALL;
+        }
+    }
+};
+
+Editor.prototype.addEntityListener = function(event) {
+    var send = false;
+    if(event instanceof KeyboardEvent) {
+        if(event.keyCode == 13) {
+            send = true;
+        }
+    } else {
+        send = true;
+    }
+
+    var text = document.getElementById("entityName").value;
+    if(send && text != "") {
+        editor.addEntity(text);
+        document.getElementById("entityName").value = "";
+    }
+};
+
+Editor.prototype.stop = function() {
+	this.edited = false;
+	this.services = [];
 };
 
 Editor.prototype.generateWorkflow = function(composite) {
@@ -123,10 +163,14 @@ Editor.prototype.generateWorkflow = function(composite) {
 };
 
 Editor.prototype.addEntity = function(name) {
+	this.edited = true;
+	
     var entity = new Entity(this.snap, name, this.services[this.services.length-1]);
     entity.draw();
 
     this.services.push(entity);
+    
+    console.log("ADDED ENTITY " + name, this.services);
 };
 
 Editor.prototype.addCompositeCode = function(value, y) {
@@ -169,4 +213,22 @@ Editor.prototype.addEndIf = function(y) {
     ff.draw();
 
     this.services[0].push(ff);
+};
+
+
+/**
+ * Uses canvas.measureText to compute and return the width of the given text of given font in pixels.
+ * 
+ * @param {String} text The text to be rendered.
+ * @param {String} font The css font descriptor that text is to be rendered with (e.g. "bold 14px verdana").
+ * 
+ * @see http://stackoverflow.com/questions/118241/calculate-text-width-with-javascript/21015393#21015393
+ */
+Editor.prototype.measureText = function (text, font) {
+	    // re-use canvas object for better performance
+	    var canvas = this.canvas || (this.canvas = document.createElement("canvas"));
+	    var context = canvas.getContext("2d");
+	    context.font = font;
+	    var metrics = context.measureText(text);
+	    return metrics.width;
 };
