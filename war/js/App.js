@@ -3,7 +3,7 @@
 function App() {
 	this.locked = false;
 	this.completed = true;
-    this.assets = 50.0;
+    this.assets = 1000.0;
     this.winnings = 0;
     this.DEFAULT_TIME = 0;
     this.currentIdx = 0;
