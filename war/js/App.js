@@ -1,9 +1,15 @@
 /* global document: false */
 
 function App() {
+	this.locked = false;
+	this.completed = true;
     this.assets = 1000.0;
     this.winnings = 0;
     this.DEFAULT_TIME = 0;
+    this.currentIdx = 0;
+    this.paid = 0;
+    this.runs = 0;
+    this.graphValues = [ [ 'No.', 'Bet', 'Profit', 'Assets'] ]
 }
 
 App.prototype.start = function() {
@@ -98,20 +104,47 @@ App.prototype.printProfit = function(profit) {
 	
 App.prototype.displayProfit = function(profit){
     var div = document.getElementById("profits");
-    div.innerText = "You won "+profit.toFixed(2)+" €";
+    div.innerText = "You won " + profit.toFixed(2) + " â‚¬";
+
+    this.currentIdx++;
+    this.graphValues.push( [  'No ' + this.currentIdx, 
+                              parseFloat(this.winnings.toFixed(2)), 
+                              parseFloat(profit.toFixed(2)),
+                              parseFloat(this.assets.toFixed(2))
+                            ]);
 
     this.assets = this.assets + profit;
     this.winnings = profit - this.winnings;
-
+    
+    if (this.assets <= 0) {
+    	this.assets = 0;
+    	this.winnings = 0;
+    }
+    
     div = document.getElementById("winnings");
-    div.innerText = "Profits: "+this.winnings.toFixed(2)+" €";
+    div.innerText = "Profits: "+this.winnings.toFixed(2)+" â‚¬";
 
     this.computeAssets(0);
-
+    this.drawGrapth();
 };
 	
 App.prototype.initiateSequence = function(){
-    document.getElementById("profits").innerHTML="";
+	if (!this.locked) {
+		this.locked = true;
+		
+		this.runs = document.getElementById("runs").value;
+		this.nextRun(true);
+	}
+};
+
+App.prototype.nextRun = function(first) {
+	if (this.assets <= 0) {
+    	document.getElementById("remaining").innerText = "no money";
+    	document.getElementById("remaining").style.add('color', 'red');
+		return;
+	}
+	
+	document.getElementById("profits").innerHTML="";
     var table = document.getElementById("eventTable");
     for(var i = table.rows.length - 1; i > 1; i--)
     {
@@ -121,27 +154,69 @@ App.prototype.initiateSequence = function(){
     document.getElementById("winnings").innerText = "";
     document.getElementById("paid_money").innerText = "";
     document.getElementById("profits").innerText = "";
+    
+    if (this.runs > 2) {
+    	document.getElementById("remaining").innerText = (this.runs - 1) + " runs remaining";
+    	
+    } else if (this.runs > 1) {
+        document.getElementById("remaining").innerText = "1 run remaining";
+        	
+    } else if (!first) {
+    	document.getElementById("remaining").innerText = "last run";	
+    }
 
     var waitTime = this.DEFAULT_TIME;
     var waitTimeInput = document.getElementById("waitingTime");
+    
     if(waitTimeInput) {
     	waitTime = Number.parseInt(waitTimeInput.value);
     }
     
-    launchWorkflow(waitTime);
-};
+    var favorite = document.getElementById("useFavoriteCB").checked;
+    launchWorkflow(waitTime, favorite, this.assets);
+}
 	
 App.prototype.computeAssets = function(paid){
     this.assets = this.assets-paid;
     console.log(this.assets, paid);
     var span = document.getElementById("assets");
     span.innerHTML="";
-    var txt = document.createTextNode("Available : "+this.assets.toFixed(2)+" €");
+    var txt = document.createTextNode("Available : "+this.assets.toFixed(2)+" â‚¬");
     span.appendChild(txt);
 
     if (paid > 0) {
         this.winnings = paid;
         var div = document.getElementById("paid_money");
-        div.innerText = "You paid " + paid.toFixed(2) + " €";
+        div.innerText = "You paid " + paid.toFixed(2) + " â‚¬";
     }
 };
+
+App.prototype.drawGrapth = function() {
+    var data = google.visualization.arrayToDataTable(this.graphValues);
+
+    var options = {
+      titlePosition: 'none',
+      legend: { position: 'bottom' },
+      height: 250,
+      vAxis: {
+    	  logScale: true
+      }
+    };
+
+    var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+
+    chart.draw(data, options);
+    
+    this.runs--;
+    var that = this;
+    
+    if (this.runs > 0) {
+    	setTimeout(function() {
+    		that.nextRun(false);
+    	}, 2000);
+    	
+    } else {
+        document.getElementById("remaining").innerText = "";
+    	this.locked = false;
+    }
+}

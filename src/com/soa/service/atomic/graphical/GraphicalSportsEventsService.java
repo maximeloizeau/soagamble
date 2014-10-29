@@ -9,8 +9,11 @@ import service.auxiliary.ServiceOperation;
 
 public class GraphicalSportsEventsService extends SportsEventsService {
 
+	private WorkflowServiceImpl impl;
+	
 	public GraphicalSportsEventsService(String serviceName, String serviceEndpoint, WorkflowServiceImpl impl) {
-		super(serviceName, serviceEndpoint, impl);
+		super(serviceName, serviceEndpoint);
+		this.impl = impl;
 	}
 	
 	@ServiceOperation

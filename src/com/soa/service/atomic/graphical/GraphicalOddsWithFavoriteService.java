@@ -6,17 +6,17 @@ import com.soa.object.Bet;
 import com.soa.object.Choice;
 import com.soa.object.Odds;
 import com.soa.object.SportEvent;
-import com.soa.service.atomic.OddsService;
+import com.soa.service.atomic.OddsWithFavoriteService;
 import com.webapp.client.event.State;
 import com.webapp.server.WorkflowServiceImpl;
 
 import service.auxiliary.ServiceOperation;
 
-public class GraphicalOddsService extends OddsService {
+public class GraphicalOddsWithFavoriteService extends OddsWithFavoriteService {
 
 	private WorkflowServiceImpl impl;
 	
-	public GraphicalOddsService(String serviceName, String serviceEndpoint, WorkflowServiceImpl impl) {
+	public GraphicalOddsWithFavoriteService(String serviceName, String serviceEndpoint, WorkflowServiceImpl impl) {
 		super(serviceName, serviceEndpoint);
 		this.impl = impl;
 	}

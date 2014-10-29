@@ -2,11 +2,11 @@ package com.soa.service.composite;
 
 import java.util.Random;
 
-import com.soa.object.Bet;
 import com.soa.object.Choice;
 import com.soa.object.Odds;
 import com.soa.object.SportEvent;
 import com.soa.qos.BestPerformanceQoS;
+import com.soa.qos.UseProviderFavoriteQoS;
 import com.soa.service.atomic.graphical.GraphicalBetCompositeService;
 import com.webapp.server.WorkflowServiceImpl;
 
@@ -15,6 +15,7 @@ import service.composite.CompositeService;
 
 public class BetCompositeService extends CompositeService {
 		
+	private double availableMoney = 0;
 	private double amount = 0;
 	private String pathToWorkflow;
 	
@@ -32,14 +33,31 @@ public class BetCompositeService extends CompositeService {
 	
 	public void start() {
 		this.addQosRequirement("BestPerformance", new BestPerformanceQoS());
+		this.addQosRequirement("UseProviderFavorite", new UseProviderFavoriteQoS());
 		this.startService();
 		this.register();
+	}
+	
+	@LocalOperation
+	public void setAvailableMoney(double money) {
+		this.availableMoney = money;
 	}
 	
 	@LocalOperation
 	public double getAmount(SportEvent event) {
 		double rand = this.getRandom(15);
 		amount += rand;
+		double diff = availableMoney - amount;
+		
+		if (diff < 0) {
+			rand = rand + diff;
+			amount = amount + diff;
+		}
+		
+		// just because of -0
+		if (rand < 0) {
+			return 0;
+		} 
 		
 		return rand;
 	}
@@ -52,25 +70,51 @@ public class BetCompositeService extends CompositeService {
 	@LocalOperation
 	public void resetTotalAmount() {
 		this.amount=0;
-		System.out.println("reset t otal");
+		System.out.println("reset total");
 	}
 	
 	@LocalOperation
-	public Choice getChoice(SportEvent event) {
-		Double rand = this.getRandom(100000) % 3;
-		
-		switch (rand.intValue()) {
-			case 0:
-				return Choice.HOME_TEAM;
-				
-			case 1:
-				return Choice.DRAW;
-				
-			case 2:
-				return Choice.AWAY_TEAM;
+	public Choice getChoice(SportEvent event, Odds odds) {
+		double min = 1000.0;
+		Choice saferChoice = null;
+		for(Choice c : Choice.values()) {
+			if(odds.getOdds(c) < min) {
+				min = odds.getOdds(c);
+				saferChoice = c;
+			}
 		}
 		
-		return null;
+		/*
+		 * User had 75% chance of chosing the safer bet (lowest odd) 
+		 */
+		int rand = new Random().nextInt(100);
+		if(rand < 75) {
+			return saferChoice;
+		} else if(rand%2 == 0) {
+			return getOtherResults(saferChoice)[0];
+		} else {
+			return getOtherResults(saferChoice)[1];
+		}
+	}
+	
+	private Choice[] getOtherResults(Choice choice){
+		Choice[] c = new Choice[2];
+		switch(choice){
+		case HOME_TEAM:
+			c[0] = Choice.DRAW;
+			c[1] = Choice.AWAY_TEAM;
+			return c ;
+		case AWAY_TEAM:
+			c[0] = Choice.HOME_TEAM;
+			c[1] = Choice.DRAW;
+			return c ;
+		case DRAW:
+			c[0] = Choice.AWAY_TEAM;
+			c[1] = Choice.HOME_TEAM;
+			return c ;
+		default:
+			return null;
+		}
 	}
 	
 	private double getRandom(int max) {

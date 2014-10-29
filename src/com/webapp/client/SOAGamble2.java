@@ -127,9 +127,9 @@ public class SOAGamble2 implements EntryPoint {
 		$wnd.launchWorkflow = @com.webapp.client.SOAGamble2::launchWorkflow(*);
 	}-*/;
 
-	public static void launchWorkflow(int waitingTime) {
+	public static void launchWorkflow(int waitingTime, boolean favorite, double availableMoney) {
 		workflowInExecution();
-		workflowService.createClient(waitingTime, clientCallback);
+		workflowService.createClient(waitingTime, favorite, availableMoney, clientCallback);
 	}
 
 	static AsyncCallback<String> callback = new AsyncCallback<String>() {
