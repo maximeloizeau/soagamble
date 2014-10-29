@@ -17,6 +17,8 @@ public class UseProviderFavoriteQoS implements AbstractQoSRequirement {
 		    if (properties.containsKey("UseProviderFavorite")){
 		    	boolean fav = (boolean)properties.get("UseProviderFavorite");
 		    	
+		    	System.out.println("USING FAV : " + fav);
+		    	System.out.println(serviceDescriptions.get(i));
 				if (fav){
 					return serviceDescriptions.get(i);
 				}

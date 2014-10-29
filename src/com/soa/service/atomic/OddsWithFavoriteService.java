@@ -27,11 +27,12 @@ public class OddsWithFavoriteService extends OddsService {
 	public Odds requestOdds(SportEvent event) {
 		System.out.println("[4DV109] OddsService.requestOdds");
 
-		if (!this.computeOdds.containsKey(event.getId())) {
-			this.computeOdds(event);
-		}
+		//if (!this.computeOdds.containsKey(event.getId())) {
+		//this.computeOdds.clear();
+		//this.computeOdds(event);
+		//}
 
-		return this.computeOdds.get(event.getId());
+		return this.computeOdds(event);
 	}
 
 	@ServiceOperation
@@ -52,11 +53,11 @@ public class OddsWithFavoriteService extends OddsService {
 		return Math.floor(money * 100) / 100;
 	}
 
-	private void computeOdds(SportEvent match) {
+	private Odds computeOdds(SportEvent match) {
 		// Generate the percentage of winning of each odd
-		int homeChance = random.nextInt(50) + 10;
+		int homeChance = random.nextInt(40) + 40;
 		System.out.println("Homechance : "  + homeChance);
-		int drawChance = random.nextInt(100 - homeChance - 25) + 10;
+		int drawChance = random.nextInt(80 - homeChance) + 10;
 		System.out.println("DrawChance : "  + drawChance);
 		int awayChance = 100 - homeChance - drawChance;
 		System.out.println("AwayChance : "  + awayChance);
@@ -92,6 +93,8 @@ public class OddsWithFavoriteService extends OddsService {
 		}
 
 		this.computeOdds.put(match.getId(), odds);
+		
+		return odds;
 	}
 
 
@@ -100,7 +103,7 @@ public class OddsWithFavoriteService extends OddsService {
 
 		Map<String, Object> customProperties = oddsService.getServiceDescription().getCustomProperties();
 		customProperties.put("UseProviderFavorite", true);
-		customProperties.put("Performance", 1);
+		customProperties.put("Performance", 3);
 		customProperties.put("DataReliability", true);
 		oddsService.startService();
 		oddsService.register();

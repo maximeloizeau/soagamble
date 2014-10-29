@@ -52,9 +52,9 @@ public class SportsEventsService extends AtomicService {
 	public SportEvent[] getSportEvents() {
 		System.out.println("[4DV109] SportsEventsService.getSportEvents");
 
-		if (events.size() == 0) {
-			this.createRandomMatches();
-		}
+		this.events.clear();
+		this.createRandomMatches();
+
 		SportEvent[] list = this.events.toArray(new SportEvent[this.events.size()]);
 		return list;
 	}

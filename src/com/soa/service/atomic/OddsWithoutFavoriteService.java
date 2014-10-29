@@ -28,11 +28,11 @@ public class OddsWithoutFavoriteService extends OddsService {
 	public Odds requestOdds(SportEvent event) {
 		System.out.println("[4DV109] OddsService.requestOdds");
 
-		if (!this.computeOdds.containsKey(event.getId())) {
-			this.computeOdds(event);
-		}
-
-		return this.computeOdds.get(event.getId());
+		//if (!this.computeOdds.containsKey(event.getId())) {
+		//	this.computeOdds(event);
+		//}
+		
+		return this.computeOdds(event);
 	}
 
 	@ServiceOperation
@@ -53,11 +53,11 @@ public class OddsWithoutFavoriteService extends OddsService {
 		return Math.floor(money * 100) / 100;
 	}
 
-	private void computeOdds(SportEvent match) {
+	private Odds computeOdds(SportEvent match) {
 		// Generate the percentage of winning of each odd
-		int homeChance = random.nextInt(50) + 10;
+		int homeChance = random.nextInt(30) + 60;
 		System.out.println("Homechance : "  + homeChance);
-		int drawChance = random.nextInt(100 - homeChance - 25) + 10;
+		int drawChance = random.nextInt(95 - homeChance) + 5;
 		System.out.println("DrawChance : "  + drawChance);
 		int awayChance = 100 - homeChance - drawChance;
 		System.out.println("AwayChance : "  + awayChance);
@@ -73,6 +73,8 @@ public class OddsWithoutFavoriteService extends OddsService {
 		
 		Odds odds = new Odds(home, draw, away);
 		this.computeOdds.put(match.getId(), odds);
+		
+		return odds;
 	}
 
 

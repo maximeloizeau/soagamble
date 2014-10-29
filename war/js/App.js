@@ -9,7 +9,7 @@ function App() {
     this.currentIdx = 0;
     this.paid = 0;
     this.runs = 0;
-    this.graphValues = [ [ 'No.', 'Bet', 'Profit'] ]
+    this.graphValues = [ [ 'No.', 'Bet', 'Profit', 'Assets'] ]
 }
 
 App.prototype.start = function() {
@@ -109,7 +109,8 @@ App.prototype.displayProfit = function(profit){
     this.currentIdx++;
     this.graphValues.push( [  'No ' + this.currentIdx, 
                               parseFloat(this.winnings.toFixed(2)), 
-                              parseFloat(profit.toFixed(2))
+                              parseFloat(profit.toFixed(2)),
+                              parseFloat(this.assets.toFixed(2))
                             ]);
 
     this.assets = this.assets + profit;
@@ -185,7 +186,10 @@ App.prototype.drawGrapth = function() {
     var options = {
       titlePosition: 'none',
       legend: { position: 'bottom' },
-      height: 250
+      height: 250,
+      vAxis: {
+    	  logScale: true
+      }
     };
 
     var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
