@@ -1,4 +1,5 @@
-START ccData, userId, odds, bets, profit, winings
+START ccData, userId, odds, bets, profit, winings, money
+	this.setAvailableMoney(money)
 	events = SportsEventsService.getSportEvents()
 		
 	FOR (i=0; i<events.length; i++){

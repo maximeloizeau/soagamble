@@ -15,6 +15,7 @@ import service.composite.CompositeService;
 
 public class BetCompositeService extends CompositeService {
 		
+	private double availableMoney = 0;
 	private double amount = 0;
 	private String pathToWorkflow;
 	
@@ -38,9 +39,25 @@ public class BetCompositeService extends CompositeService {
 	}
 	
 	@LocalOperation
+	public void setAvailableMoney(double money) {
+		this.availableMoney = money;
+	}
+	
+	@LocalOperation
 	public double getAmount(SportEvent event) {
 		double rand = this.getRandom(15);
 		amount += rand;
+		double diff = availableMoney - amount;
+		
+		if (diff < 0) {
+			rand = rand + diff;
+			amount = amount + diff;
+		}
+		
+		// just because of -0
+		if (rand < 0) {
+			return 0;
+		} 
 		
 		return rand;
 	}

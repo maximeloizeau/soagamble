@@ -64,13 +64,13 @@ WorkflowService, ServerMessageGeneratorService {
 		return "OK";
 	}
 	
-	public Double createClient(int waitingTime, boolean favorite) {
+	public Double createClient(int waitingTime, boolean favorite, double availableMoney) {
 		this.waitingTime = waitingTime;
 		
 		if(client == null) {
 			client = new Client();
 		}
-		Double result = client.start(favorite);
+		Double result = client.start(favorite, availableMoney);
 		
 		return Math.floor(result * 100) / 100;
 	}

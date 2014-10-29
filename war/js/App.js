@@ -116,6 +116,11 @@ App.prototype.displayProfit = function(profit){
     this.assets = this.assets + profit;
     this.winnings = profit - this.winnings;
     
+    if (this.assets <= 0) {
+    	this.assets = 0;
+    	this.winnings = 0;
+    }
+    
     div = document.getElementById("winnings");
     div.innerText = "Profits: "+this.winnings.toFixed(2)+" €";
 
@@ -133,6 +138,12 @@ App.prototype.initiateSequence = function(){
 };
 
 App.prototype.nextRun = function(first) {
+	if (this.assets <= 0) {
+    	document.getElementById("remaining").innerText = "no money";
+    	document.getElementById("remaining").style.add('color', 'red');
+		return;
+	}
+	
 	document.getElementById("profits").innerHTML="";
     var table = document.getElementById("eventTable");
     for(var i = table.rows.length - 1; i > 1; i--)
@@ -162,7 +173,7 @@ App.prototype.nextRun = function(first) {
     }
     
     var favorite = document.getElementById("useFavoriteCB").checked;
-    launchWorkflow(waitTime, favorite);
+    launchWorkflow(waitTime, favorite, this.assets);
 }
 	
 App.prototype.computeAssets = function(paid){

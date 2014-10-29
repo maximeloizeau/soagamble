@@ -12,12 +12,13 @@ public class Client extends CompositeServiceClient {
 	public Client() {
 		super("se.lnu.course4dv109");
 	}
-
-	public double start(boolean favorite) {	
+	public double start(boolean favorite, double availableMoney) {	
 		userId++;
 
+		//qosRequirements.add("BestPerformance");
 		//List<String> qosRequirements = new ArrayList<String>(); //client.getQosRequirementNames();
 		String qosRequirement;
+		
 		
 		if(favorite){
 			qosRequirement = "UseProviderFavorite";
@@ -31,7 +32,7 @@ public class Client extends CompositeServiceClient {
 		double[] profits = new double[8];
 		double result = 0.0;
 
-		result = (double)this.invokeCompositeService(qosRequirement, "3333-3333", userId, odds, bets, profits, result);
+		result = (double)this.invokeCompositeService(qosRequirement, "3333-3333", userId, odds, bets, profits, result, availableMoney);
 
 		//Here we return because we only want to run once for the moment. Remove the return and it will run for each QoS requirement
 		return result;
