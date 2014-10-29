@@ -66,6 +66,6 @@ window.onload = function() {
     xmlhttp.open('GET', '/gamble-workflow.txt', false);
     xmlhttp.send();
     document.getElementById('workflowToParse').innerHTML = xmlhttp.responseText;
-    
+    parser.start();    
     parser.clickToStart();
 };

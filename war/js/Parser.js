@@ -26,7 +26,7 @@ Parser.prototype.start = function() {
     document.getElementById('startParsing').addEventListener('click', this.clickToStart);
     
     document.getElementById("waitingTime").value = this.waitTime;
-    document.getElementById("waitingTime").addEventListener('change', this.changeWaitTime.bind(this));
+    document.getElementById("waitingTime").addEventListener('change', this.changeWaitTime);
 };
 
 Parser.prototype.stop = function() {
@@ -43,7 +43,7 @@ Parser.prototype.clickToStart = function() {
 };
 
 Parser.prototype.changeWaitTime = function(event) {
-	this.waitTime = parseInt(event.target.value);
+	parser.waitTime = parseInt(event.target.value);
 }
 
 Parser.prototype.startParser = function(workflow) {
