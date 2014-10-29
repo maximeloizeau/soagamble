@@ -1,5 +1,5 @@
 START ccData, userId, odds, bets, profit, winings, money
-	this.setAvailableMoney(money)
+	this.setAvailableMoney(money)	// helper function for executing the workflow multiple times for simulation
 	events = SportsEventsService.getSportEvents()
 		
 	FOR (i=0; i<events.length; i++){
@@ -7,7 +7,7 @@ START ccData, userId, odds, bets, profit, winings, money
 	}
 	
 	FOR (i=0; i<events.length; i++){
-		am = this.getAmount(events[i])
+		am = this.getAmount(events[i]) // helper function, for random amount on simulation
 		ch = this.getChoice(events[i], odds[i])
 		
 		bets[i] = BetService.placeBet(events[i], userId, ch, am)
@@ -23,7 +23,7 @@ START ccData, userId, odds, bets, profit, winings, money
 		}
 		
 		winings = BankService.requestPayment(ccData, profit)
-		this.resetTotalAmount()
+		this.resetTotalAmount() // helper function, for reset the beting amount on simulation
 	}
 	
 RETURN winings
