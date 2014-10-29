@@ -12,5 +12,5 @@ public class Main {
 		//SportsEventsService.main(args, this);
 		//BetCompositeService.main(args);
 		//Client.main(args);
-	}
+	} 
 }

@@ -160,7 +160,8 @@ App.prototype.nextRun = function(first) {
     	waitTime = Number.parseInt(waitTimeInput.value);
     }
     
-    launchWorkflow(waitTime);
+    var favorite = document.getElementById("useFavoriteCB").checked;
+    launchWorkflow(waitTime, favorite);
 }
 	
 App.prototype.computeAssets = function(paid){
