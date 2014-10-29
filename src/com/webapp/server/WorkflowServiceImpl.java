@@ -59,13 +59,13 @@ WorkflowService, ServerMessageGeneratorService {
 		return "OK";
 	}
 	
-	public Double createClient(int waitingTime) {
+	public Double createClient(int waitingTime, double availableMoney) {
 		this.waitingTime = waitingTime;
 		
 		if(client == null) {
 			client = new Client();
 		}
-		Double result = client.start();
+		Double result = client.start(availableMoney);
 		
 		return Math.floor(result * 100) / 100;
 	}

@@ -16,7 +16,7 @@ public class Client extends CompositeServiceClient {
 		super("se.lnu.course4dv109");
 	}
 	
-	public double start() {	
+	public double start(double availableMoney) {	
 		userId++;
 
 		List<String> qosRequirements = new ArrayList<String>(); //client.getQosRequirementNames();
@@ -29,7 +29,7 @@ public class Client extends CompositeServiceClient {
 			double result = 0.0;
 			
 		    System.out.println("QoS requirement:" + qosRequirement + " " + this);
-		    result = (double)this.invokeCompositeService(qosRequirement, "3333-3333", userId, odds, bets, profits, result);
+		    result = (double)this.invokeCompositeService(qosRequirement, "3333-3333", userId, odds, bets, profits, result, availableMoney);
 		    		    
 		    //Here we return because we only want to run once for the moment. Remove the return and it will run for each QoS requirement
 		    return result;
