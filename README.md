@@ -18,8 +18,12 @@ You need to configure Eclipse to be able to compile and run a GWT project. You o
     - SDKs > Google App Engine Java SDK and Google Web Toolkit SDK
 
 Import the project in eclipse.
+
 *> If there are some import problems with google packages, go to your project properties > Google > Web Toolkit > and make sure "Use GWT" is checked.*
+
 Then launch the project (Right click on it > Run As > Web application)
+
+Finally Eclipse will give you a local URL to access to webpage (like http://127.0.0.1:8888/SOAGamble2.html?gwt.codesvr=127.0.0.1:9997)
 
 
 ## Libraries
@@ -29,7 +33,7 @@ GWTEventService (https://code.google.com/p/gwteventservice/) : to realize the co
 Snap.svg (http://snapsvg.io) : to facilitate the drawing of shapes in SVG
 
 
-## Contributor
+## Authors
 
 
 @AmauryC
