@@ -177,7 +177,6 @@ App.prototype.nextRun = function(first) {
 	
 App.prototype.computeAssets = function(paid){
     this.assets = this.assets-paid;
-    console.log(this.assets, paid);
     var span = document.getElementById("assets");
     span.innerHTML="";
     var txt = document.createTextNode("Available : "+this.assets.toFixed(2)+" €");

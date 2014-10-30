@@ -248,5 +248,4 @@ Element.prototype.toGrey = function() {
 };
 
 Element.prototype.toColor = function() {
-    console.log("--- Not implemented");
 };
