@@ -63,7 +63,7 @@ window.onload = function() {
     
     var xmlhttp, text;
     xmlhttp = new XMLHttpRequest();
-    xmlhttp.open('GET', '/gamble-workflow.txt', false);
+    xmlhttp.open('GET', 'gamble-workflow.txt', false);
     xmlhttp.send();
     document.getElementById('workflowToParse').innerHTML = xmlhttp.responseText;
     parser.start();    

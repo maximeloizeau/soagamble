@@ -47,6 +47,8 @@ Editor.prototype.start = function(readonly) {
 			parserNodes[i].style.display = "block";
 		}
 	} else {
+		this.readonly = false;
+		
 		for(var i = 0; i < editorNodes.length; i++) {
 			editorNodes[i].style.display = "block";
 		}
